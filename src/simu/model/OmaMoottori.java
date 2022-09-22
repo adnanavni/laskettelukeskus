@@ -19,11 +19,11 @@ public class OmaMoottori extends Moottori {
 
 		palvelupisteet = new Palvelupiste[5];
 
-		palvelupisteet[0] = new Palvelupiste(new Normal(20, 6), tapahtumalista, TapahtumanTyyppi.DEP1);
-		palvelupisteet[1] = new Palvelupiste(new Normal(50, 15), tapahtumalista, TapahtumanTyyppi.DEP2);
-		palvelupisteet[2] = new Palvelupiste(new Normal(40, 10), tapahtumalista, TapahtumanTyyppi.DEP3);
-		palvelupisteet[3] = new Palvelupiste(new Uniform(30, 35), tapahtumalista, TapahtumanTyyppi.DEP4);
-		palvelupisteet[4] = new Palvelupiste(new Uniform(25, 28), tapahtumalista, TapahtumanTyyppi.DEP5);
+		palvelupisteet[Palvelupiste.KASSA] = new Palvelupiste(new Normal(20, 6), tapahtumalista, TapahtumanTyyppi.DEP1);
+		palvelupisteet[Palvelupiste.VUOKRAAMO] = new Palvelupiste(new Normal(50, 15), tapahtumalista, TapahtumanTyyppi.DEP2);
+		palvelupisteet[Palvelupiste.KAHVILA] = new Palvelupiste(new Normal(40, 10), tapahtumalista, TapahtumanTyyppi.DEP3);
+		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(30, 35), tapahtumalista, TapahtumanTyyppi.DEP4);
+		palvelupisteet[Palvelupiste.RINNE2] = new Palvelupiste(new Uniform(25, 28), tapahtumalista, TapahtumanTyyppi.DEP5);
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
@@ -41,12 +41,12 @@ public class OmaMoottori extends Moottori {
 		switch (t.getTyyppi()) {
 
 		case ARR1:
-			palvelupisteet[0].lisaaJonoon(new Asiakas());
+			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas());
 			saapumisprosessi.generoiSeuraava();
 			break;
 		case DEP1:
-			a = palvelupisteet[0].otaJonosta();
-			palvelupisteet[1].lisaaJonoon(a);
+			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
+			palvelupisteet[Palvelupiste.VUOKRAAMO].lisaaJonoon(a);
 			break;
 		case DEP2:
 			a = palvelupisteet[1].otaJonosta();
