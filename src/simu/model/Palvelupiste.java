@@ -6,7 +6,6 @@ import eduni.distributions.ContinuousGenerator;
 import simu.framework.Kello;
 import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
-import simu.framework.Trace;
 
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat) ja raportointi koodattava
@@ -42,9 +41,6 @@ public class Palvelupiste {
 	}
 
 	public void aloitaPalvelu(){  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
-		
-		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId());
-		
 		varattu = true;
 		double palveluaika = generator.sample();
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi,Kello.getInstance().getAika()+palveluaika));
