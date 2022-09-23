@@ -1,5 +1,7 @@
 package simu.model;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import controller.IKontrolleriMtoV;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
@@ -8,6 +10,7 @@ import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
+import simu.framework.Trace;
 
 public class OmaMoottori extends Moottori {
 
@@ -51,18 +54,22 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
-			palvelupisteet[Palvelupiste.KAHVILA].lisaaJonoon(a);
+			System.out.println(a.getId() +" Vuokraamo");
+			palvelupisteet[ThreadLocalRandom.current().nextInt(2,4)].lisaaJonoon(a);
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
-			palvelupisteet[Palvelupiste.RINNE1].lisaaJonoon(a);
+			System.out.println(a.getId() + " kahvilassa");
+			palvelupisteet[ThreadLocalRandom.current().nextInt(2,4)].lisaaJonoon(a);
 			break;
 		case DEP4:
 			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
-			palvelupisteet[Palvelupiste.RINNE2].lisaaJonoon(a);
+			System.out.println(a.getId() +" rinne 1");
+			palvelupisteet[ThreadLocalRandom.current().nextInt(2,4)].lisaaJonoon(a);
 			break;
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
+			System.out.println(a.getId() + " rinne 2");
 			a.setPoistumisaika(Kello.getInstance().getAika());
 			a.raportti();
 		}

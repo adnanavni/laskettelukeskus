@@ -35,7 +35,11 @@ public class Asiakas {
 	public void setSaapumisaika(double saapumisaika) {
 		this.saapumisaika = saapumisaika;
 	}
-	
+		
+	public int getId() {
+		return id;
+	}
+
 	public void raportti(){
 		Trace.out(Trace.Level.INFO, "Asiakas "+id+ " saapui:" +saapumisaika);
 		Trace.out(Trace.Level.INFO,"Asiakas "+id+ " poistui:" +poistumisaika);
