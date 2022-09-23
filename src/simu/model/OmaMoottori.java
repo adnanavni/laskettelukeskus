@@ -25,7 +25,7 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(30, 35), tapahtumalista, TapahtumanTyyppi.DEP4);
 		palvelupisteet[Palvelupiste.RINNE2] = new Palvelupiste(new Uniform(25, 28), tapahtumalista, TapahtumanTyyppi.DEP5);
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
+		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
 	}
 
@@ -43,25 +43,26 @@ public class OmaMoottori extends Moottori {
 		case ARR1:
 			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas());
 			saapumisprosessi.generoiSeuraava();
+			kontrolleri.visualisoiAsiakas();
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
 			palvelupisteet[Palvelupiste.VUOKRAAMO].lisaaJonoon(a);
 			break;
 		case DEP2:
-			a = palvelupisteet[1].otaJonosta();
-			palvelupisteet[2].lisaaJonoon(a);
+			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
+			palvelupisteet[Palvelupiste.KAHVILA].lisaaJonoon(a);
 			break;
 		case DEP3:
-			a = palvelupisteet[2].otaJonosta();
-			palvelupisteet[3].lisaaJonoon(a);
+			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
+			palvelupisteet[Palvelupiste.RINNE1].lisaaJonoon(a);
 			break;
 		case DEP4:
-			a = palvelupisteet[3].otaJonosta();
-			palvelupisteet[4].lisaaJonoon(a);
+			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
+			palvelupisteet[Palvelupiste.RINNE2].lisaaJonoon(a);
 			break;
 		case DEP5:
-			a = palvelupisteet[4].otaJonosta();
+			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
 			a.setPoistumisaika(Kello.getInstance().getAika());
 			a.raportti();
 		}
