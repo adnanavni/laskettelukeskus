@@ -1,5 +1,8 @@
 package simu.model;
 
+import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
+
 import simu.framework.Kello;
 import simu.framework.Trace;
 
@@ -12,12 +15,23 @@ public class Asiakas {
 	private int id;
 	private static int i = 1;
 	private static long sum = 0;
+	LinkedList<Integer> reitti = new LinkedList<>();
 	
-	public Asiakas(){
+	public Asiakas(int reitinpituus){
 	    id = i++;
+	    
+	    for (int i = 0; i < reitinpituus; i++) {
+	    	reitti.add(ThreadLocalRandom.current().nextInt(2, 5));
+	    	
+	    }
+	    reitti.add(5);
 	    
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas:" + id + ":"+saapumisaika);
+	}
+	
+	public int seuraava() {
+		return reitti.poll();
 	}
 
 	public double getPoistumisaika() {
@@ -39,6 +53,8 @@ public class Asiakas {
 	public int getId() {
 		return id;
 	}
+	
+
 
 	public void raportti(){
 		Trace.out(Trace.Level.INFO, "Asiakas "+id+ " saapui:" +saapumisaika);
@@ -47,6 +63,12 @@ public class Asiakas {
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo "+ keskiarvo);
+	}
+	
+	@Override
+	public String toString() {
+		return "Asiakas [saapumisaika=" + saapumisaika + ", poistumisaika=" + poistumisaika + ", id=" + id + ", reitti="
+				+ reitti + "]";
 	}
 
 }

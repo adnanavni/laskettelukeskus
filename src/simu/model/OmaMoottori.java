@@ -20,13 +20,19 @@ public class OmaMoottori extends Moottori {
 
 		super(kontrolleri); // UUSI
 
-		palvelupisteet = new Palvelupiste[5];
+		palvelupisteet = new Palvelupiste[6];
 
 		palvelupisteet[Palvelupiste.KASSA] = new Palvelupiste(new Normal(20, 6), tapahtumalista, TapahtumanTyyppi.DEP1);
-		palvelupisteet[Palvelupiste.VUOKRAAMO] = new Palvelupiste(new Normal(50, 15), tapahtumalista, TapahtumanTyyppi.DEP2);
-		palvelupisteet[Palvelupiste.KAHVILA] = new Palvelupiste(new Normal(40, 10), tapahtumalista, TapahtumanTyyppi.DEP3);
-		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(30, 35), tapahtumalista, TapahtumanTyyppi.DEP4);
-		palvelupisteet[Palvelupiste.RINNE2] = new Palvelupiste(new Uniform(25, 28), tapahtumalista, TapahtumanTyyppi.DEP5);
+		palvelupisteet[Palvelupiste.VUOKRAAMO] = new Palvelupiste(new Normal(50, 15), tapahtumalista,
+				TapahtumanTyyppi.DEP2);
+		palvelupisteet[Palvelupiste.KAHVILA] = new Palvelupiste(new Normal(40, 10), tapahtumalista,
+				TapahtumanTyyppi.DEP3);
+		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(30, 35), tapahtumalista,
+				TapahtumanTyyppi.DEP4);
+		palvelupisteet[Palvelupiste.RINNE2] = new Palvelupiste(new Uniform(25, 28), tapahtumalista,
+				TapahtumanTyyppi.DEP5);
+		palvelupisteet[Palvelupiste.VUOKRAAMOEXIT] = new Palvelupiste(new Uniform(25, 28), tapahtumalista,
+				TapahtumanTyyppi.DEP6);
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
@@ -44,34 +50,41 @@ public class OmaMoottori extends Moottori {
 		switch (t.getTyyppi()) {
 
 		case ARR1:
-			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas());
+			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas(ThreadLocalRandom.current().nextInt(5, 10)));
 			saapumisprosessi.generoiSeuraava();
 			kontrolleri.visualisoiAsiakas();
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
+			System.out.println(a.getId() + " KASSA" + a);
 			palvelupisteet[Palvelupiste.VUOKRAAMO].lisaaJonoon(a);
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
-			System.out.println(a.getId() +" Vuokraamo");
-			palvelupisteet[ThreadLocalRandom.current().nextInt(2,4)].lisaaJonoon(a);
+			System.out.println(a.getId() + " VUOKRAAMO" + a);
+			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
-			System.out.println(a.getId() + " kahvilassa");
-			palvelupisteet[ThreadLocalRandom.current().nextInt(2,4)].lisaaJonoon(a);
+			System.out.println(a.getId() + " KAHVILA" + a);
+			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP4:
 			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
-			System.out.println(a.getId() +" rinne 1");
-			palvelupisteet[ThreadLocalRandom.current().nextInt(2,4)].lisaaJonoon(a);
+			System.out.println(a.getId() + " RINNE 1" + a);
+			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
-			System.out.println(a.getId() + " rinne 2");
+			System.out.println(a.getId() + " RINNE 2" + a);
+			palvelupisteet[a.seuraava()].lisaaJonoon(a);
+			break;
+		case DEP6:
+			a = palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].otaJonosta();
+			System.out.println(a.getId() + " LOPPU" + a);
 			a.setPoistumisaika(Kello.getInstance().getAika());
 			a.raportti();
+			break;
 		}
 	}
 

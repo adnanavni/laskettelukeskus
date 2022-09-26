@@ -16,7 +16,7 @@ public class Palvelupiste {
 	private ContinuousGenerator generator;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
-	protected static final int KASSA = 0, VUOKRAAMO = 1, KAHVILA = 2, RINNE1 = 3, RINNE2 = 4; 
+	protected static final int KASSA = 0, VUOKRAAMO = 1, KAHVILA = 2, RINNE1 = 3, RINNE2 = 4, VUOKRAAMOEXIT = 5; 
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 
