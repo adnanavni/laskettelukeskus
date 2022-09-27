@@ -22,6 +22,9 @@ public class OmaMoottori extends Moottori {
 	private HashMap<Integer, Double> kayttoaste = new HashMap<>();
 	private double kokonaisaika;
 	private double suoritusteho;
+	private double kokonaislapimenoaika;
+	private double lapimenoKA;
+	private double jononpituusKA;
 	private HashMap<Integer, Double> palveluAikaKA = new HashMap<>();
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) { // UUSI
@@ -101,6 +104,7 @@ public class OmaMoottori extends Moottori {
 			System.out.println(a.getId() + " LOPPU" + a);
 			a.setPoistumisaika(Kello.getInstance().getAika());
 			a.raportti();
+			kokonaislapimenoaika += a.getSum();
 			tulokset();
 			break;
 		}
@@ -120,6 +124,10 @@ public class OmaMoottori extends Moottori {
 
 		suoritusteho = palvellutAsiakkaat / kokonaisaika;
 
+		lapimenoKA = kokonaislapimenoaika / palvellutAsiakkaat;
+
+		jononpituusKA = kokonaislapimenoaika / kokonaisaika;
+
 		for (int i = 0; i < 5; i++) {
 			palveluAikaKA.put(i, (palveluajat.get(i) / palvellutAsiakkaat));
 		}
@@ -131,6 +139,9 @@ public class OmaMoottori extends Moottori {
 		System.out.println("U: " + kayttoaste);
 		System.out.println("X: " + suoritusteho + " asiakasta/sekunnissa");
 		System.out.println("S: " + palveluAikaKA);
+		System.out.println("W: " + kokonaislapimenoaika);
+		System.out.println("R: " + lapimenoKA);
+		System.out.println("N: " + jononpituusKA);
 
 		// UUTTA graafista
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
