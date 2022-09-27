@@ -1,8 +1,10 @@
 package simu.model;
 
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import eduni.distributions.Normal;
 import simu.framework.Kello;
 import simu.framework.Trace;
 
@@ -16,12 +18,27 @@ public class Asiakas {
 	private static int i = 1;
 	private static long sum = 0;
 	LinkedList<Integer> reitti = new LinkedList<>();
+	//rinne 1 on suosituin, joten sen mukainen jakauma
+	Normal jakauma = new Normal(3.5,0.75);
+	
 	
 	public Asiakas(int reitinpituus){
 	    id = i++;
 	    
 	    for (int i = 0; i < reitinpituus; i++) {
-	    	reitti.add(ThreadLocalRandom.current().nextInt(2, 5));
+	    	int jakaumaLuku = (int) jakauma.sample();
+	    	
+	    	if(jakaumaLuku>4 || jakaumaLuku<2) {
+	    		jakaumaLuku=4;
+	    	}
+	    	
+	    	reitti.add(jakaumaLuku);
+	    	
+	    	
+	    	//Ei haluta kahta kahvilaa peräkkäin(epärealistinen)
+	    	if(reitti.size() > 1 && reitti.get(i) == 2 && reitti.get(i-1) == 2) {
+	    			reitti.set(i,3); 
+	    	}
 	    	
 	    }
 	    reitti.add(5);

@@ -1,5 +1,7 @@
 package simu.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 import controller.IKontrolleriMtoV;
@@ -15,6 +17,10 @@ import simu.framework.Trace;
 public class OmaMoottori extends Moottori {
 
 	private Saapumisprosessi saapumisprosessi;
+	private int reitinPituus = ThreadLocalRandom.current().nextInt(5, 25);
+	private int saapuneetAsiakkaat = 0;
+	private int palvellutAsiakkaat = 0;
+	private HashMap<Integer,Double> palveluajat = new HashMap<>();
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) { // UUSI
 
@@ -47,43 +53,52 @@ public class OmaMoottori extends Moottori {
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
 		Asiakas a;
+		
 		switch (t.getTyyppi()) {
 
 		case ARR1:
-			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas(ThreadLocalRandom.current().nextInt(5, 10)));
+			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas(reitinPituus));
+			saapuneetAsiakkaat++;
 			saapumisprosessi.generoiSeuraava();
 			kontrolleri.visualisoiAsiakas();
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
+			palveluajat.put(Palvelupiste.KASSA, palvelupisteet[Palvelupiste.KASSA].getPalveluaikaSumma());
 			System.out.println(a.getId() + " KASSA" + a);
 			palvelupisteet[Palvelupiste.VUOKRAAMO].lisaaJonoon(a);
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
+			palveluajat.put(Palvelupiste.VUOKRAAMO, palvelupisteet[Palvelupiste.VUOKRAAMO].getPalveluaikaSumma());
 			System.out.println(a.getId() + " VUOKRAAMO" + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
+			palveluajat.put(Palvelupiste.KAHVILA, palvelupisteet[Palvelupiste.KAHVILA].getPalveluaikaSumma());
 			System.out.println(a.getId() + " KAHVILA" + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP4:
 			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
-			System.out.println(a.getId() + " RINNE 1" + a);
+			palveluajat.put(Palvelupiste.RINNE1, palvelupisteet[Palvelupiste.RINNE1].getPalveluaikaSumma());
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
+			palveluajat.put(Palvelupiste.RINNE2, palvelupisteet[Palvelupiste.RINNE2].getPalveluaikaSumma());
 			System.out.println(a.getId() + " RINNE 2" + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP6:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].otaJonosta();
+			palveluajat.put(Palvelupiste.VUOKRAAMOEXIT, palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].getPalveluaikaSumma());
+			palvellutAsiakkaat++;
 			System.out.println(a.getId() + " LOPPU" + a);
 			a.setPoistumisaika(Kello.getInstance().getAika());
 			a.raportti();
+			tulokset();
 			break;
 		}
 	}
@@ -92,9 +107,13 @@ public class OmaMoottori extends Moottori {
 	protected void tulokset() {
 
 		// VANHAA tekstipohjaista
-		// System.out.println("Simulointi päättyi kello " +
-		// Kello.getInstance().getAika());
-		// System.out.println("Tulokset ... puuttuvat vielä");
+		System.out.println("Simulointi päättyi kello " +
+		Kello.getInstance().getAika());
+		//System.out.println("Tulokset ... puuttuvat vielä");
+		System.out.println("A: " + saapuneetAsiakkaat);
+		System.out.println("B: " + palveluajat);
+		System.out.println("C: " + palvellutAsiakkaat);
+		
 
 		// UUTTA graafista
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
