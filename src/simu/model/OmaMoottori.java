@@ -1,6 +1,5 @@
 package simu.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -12,15 +11,18 @@ import simu.framework.Kello;
 import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
-import simu.framework.Trace;
 
 public class OmaMoottori extends Moottori {
 
 	private Saapumisprosessi saapumisprosessi;
 	private int reitinPituus = ThreadLocalRandom.current().nextInt(5, 25);
-	private int saapuneetAsiakkaat = 0;
-	private int palvellutAsiakkaat = 0;
-	private HashMap<Integer,Double> palveluajat = new HashMap<>();
+	private int saapuneetAsiakkaat;
+	private int palvellutAsiakkaat;
+	private HashMap<Integer, Double> palveluajat = new HashMap<>();
+	private HashMap<Integer, Double> kayttoaste = new HashMap<>();
+	private double kokonaisaika;
+	private double suoritusteho;
+	private HashMap<Integer, Double> palveluAikaKA = new HashMap<>();
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) { // UUSI
 
@@ -53,11 +55,11 @@ public class OmaMoottori extends Moottori {
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
 		Asiakas a;
-		
+
 		switch (t.getTyyppi()) {
 
 		case ARR1:
-			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas(reitinPituus));
+			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas(5));
 			saapuneetAsiakkaat++;
 			saapumisprosessi.generoiSeuraava();
 			kontrolleri.visualisoiAsiakas();
@@ -93,7 +95,8 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP6:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].otaJonosta();
-			palveluajat.put(Palvelupiste.VUOKRAAMOEXIT, palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].getPalveluaikaSumma());
+			palveluajat.put(Palvelupiste.VUOKRAAMOEXIT,
+					palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].getPalveluaikaSumma());
 			palvellutAsiakkaat++;
 			System.out.println(a.getId() + " LOPPU" + a);
 			a.setPoistumisaika(Kello.getInstance().getAika());
@@ -107,13 +110,27 @@ public class OmaMoottori extends Moottori {
 	protected void tulokset() {
 
 		// VANHAA tekstipohjaista
-		System.out.println("Simulointi päättyi kello " +
-		Kello.getInstance().getAika());
-		//System.out.println("Tulokset ... puuttuvat vielä");
+		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
+
+		kokonaisaika = Kello.getInstance().getAika();
+
+		for (int i = 0; i < 5; i++) {
+			kayttoaste.put(i, (palveluajat.get(i) / kokonaisaika * 100));
+		}
+
+		suoritusteho = palvellutAsiakkaat / kokonaisaika;
+
+		for (int i = 0; i < 5; i++) {
+			palveluAikaKA.put(i, (palveluajat.get(i) / palvellutAsiakkaat));
+		}
+
+		// System.out.println("Tulokset ... puuttuvat vielä");
 		System.out.println("A: " + saapuneetAsiakkaat);
 		System.out.println("B: " + palveluajat);
 		System.out.println("C: " + palvellutAsiakkaat);
-		
+		System.out.println("U: " + kayttoaste);
+		System.out.println("X: " + suoritusteho + " asiakasta/sekunnissa");
+		System.out.println("S: " + palveluAikaKA);
 
 		// UUTTA graafista
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
