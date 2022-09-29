@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="900.0" maxWidth="1600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18">
+   <children>
+      <SplitPane dividerPositions="0.29599499374217775" prefHeight="900.0" prefWidth="1600.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="598.0" prefWidth="324.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="42.0" prefWidth="412.0" text="Simulaattorin asetukset" AnchorPane.bottomAnchor="731.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="1.0" layoutY="69.0" prefHeight="35.0" prefWidth="178.0" text="Simolaation kesto:" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="69.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="244.0" layoutY="69.0" maxHeight="25.0" maxWidth="208.0" prefHeight="25.0" prefWidth="208.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="69.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <RadioButton layoutX="237.0" layoutY="112.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="87.0" text="Tunti" AnchorPane.bottomAnchor="624.0" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="112.0">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="yksikkö" />
+                     </toggleGroup>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton layoutX="324.0" layoutY="112.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="108.0" text="Minuutti" toggleGroup="$yksikkö" AnchorPane.bottomAnchor="624.0" AnchorPane.leftAnchor="324.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="112.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <Label layoutX="14.0" layoutY="154.0" prefWidth="178.0" text="Kassa" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="150.0">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="244.0" layoutY="333.0" prefHeight="35.0" prefWidth="208.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="340.0" />
+                  <Label layoutX="5.0" layoutY="335.0" text="Sisäänkäynnin hinta (€):" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="340.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="221.0" text="Saapumisväliajan keskiarvo (min):" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="220.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="244.0" layoutY="220.0" prefHeight="35.0" prefWidth="208.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="220.0" />
+                  <Label layoutX="5.0" layoutY="277.0" text="Palveluajan keskiarvo (min):" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="280.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="300.0" layoutY="275.0" prefHeight="35.0" prefWidth="208.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="280.0" />
+                  <Label layoutX="5.0" layoutY="389.0" prefHeight="53.0" prefWidth="200.0" text="Vuokraamo" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="400.0">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="478.0" text="Saapumisväliajan keskiarvo (min):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="480.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="303.0" layoutY="476.0" prefHeight="35.0" prefWidth="477.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="480.0" />
+                  <Label layoutX="4.0" layoutY="524.0" text="Palveluajan keskiarvo (min):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="540.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="303.0" layoutY="522.0" prefHeight="35.0" prefWidth="163.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="540.0" />
+                  <Label layoutX="5.0" layoutY="590.0" text="Vuokraamisen hinta (€):" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="600.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="300.0" layoutY="598.0" prefHeight="35.0" prefWidth="163.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="600.0" />
+                  <Label layoutX="8.0" layoutY="635.0" prefHeight="53.0" prefWidth="200.0" text="Kahvila" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="650.0">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="4.0" layoutY="720.0" text="Saapumisväliajan keskiarvo (min):" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="730.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="297.0" layoutY="728.0" prefHeight="35.0" prefWidth="163.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="728.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="778.0" prefWidth="1170.0" />
+        </items>
+      </SplitPane>
+      <Label alignment="TOP_LEFT" prefHeight="52.0" prefWidth="467.0" text="Laskettelukeskus" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="1128.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font name="SansSerif Regular" size="48.0" />
+            
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
