@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class OmaGUI extends Application {
 	 private Stage primaryStage;
-	    private BorderPane rootLayout;
+	 private BorderPane rootLayout;
 
 	    @Override
 	    public void start(Stage primaryStage) {
@@ -19,7 +19,6 @@ public class OmaGUI extends Application {
 	        this.primaryStage.setTitle("Laskettelukeskus");
 
 	        initRootLayout();
-
 	        showEkascene();
 	    }
 	    
@@ -49,11 +48,11 @@ public class OmaGUI extends Application {
 	        try {
 	            // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(OmaGUI.class.getResource("ekaScene.fxml"));
-	            AnchorPane personOverview = (AnchorPane) loader.load();
+	            loader.setLocation(OmaGUI.class.getResource("EkaRuutu.fxml"));
+	            AnchorPane ekaScene = (AnchorPane) loader.load();
 	            
 	            // Set person overview into the center of root layout.
-	            rootLayout.setCenter(personOverview);
+	            rootLayout.setCenter(ekaScene);
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
