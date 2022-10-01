@@ -13,10 +13,12 @@ public class Palvelupiste {
 
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
 	private ContinuousGenerator generator;
+	private ContinuousGenerator hinta;
+	private double hintojenSumma;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private double palveluaikaSumma;
-	protected static final int KASSA = 0, VUOKRAAMO = 1, KAHVILA = 2, RINNE1 = 3, RINNE2 = 4, VUOKRAAMOEXIT = 5; 
+	protected static final int KASSA = 0, VUOKRAAMO = 1, KAHVILA = 2, RINNE1 = 3, RINNE2 = 4, VUOKRAAMOEXIT = 5;
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 
@@ -26,6 +28,15 @@ public class Palvelupiste {
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
+
+	}
+
+	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi,
+			ContinuousGenerator hinta) {
+		this.tapahtumalista = tapahtumalista;
+		this.generator = generator;
+		this.skeduloitavanTapahtumanTyyppi = tyyppi;
+		this.hinta = hinta;
 
 	}
 
@@ -43,9 +54,15 @@ public class Palvelupiste {
 		varattu = true;
 		double palveluaika = generator.sample();
 		palveluaikaSumma += palveluaika;
+
+		if (hinta != null) {
+			double esimHinta = hinta.sample();
+			hintojenSumma += esimHinta;
+		}
+
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi, Kello.getInstance().getAika() + palveluaika));
 	}
-	
+
 	public double getPalveluaikaSumma() {
 		return palveluaikaSumma;
 	}
@@ -58,4 +75,7 @@ public class Palvelupiste {
 		return jono.size() != 0;
 	}
 
+	public double getHintojenSumma() {
+		return hintojenSumma;
+	}
 }

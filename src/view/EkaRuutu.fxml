@@ -70,19 +70,22 @@
                         </TextField>
                         <RadioButton mnemonicParsing="false" text="Sekuntia" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <toggleGroup>
-                              <ToggleGroup fx:id="yksikko" />
+                              <ToggleGroup />
                            </toggleGroup>
                            <GridPane.margin>
                               <Insets left="80.0" />
                            </GridPane.margin>
                         </RadioButton>
-                        <RadioButton alignment="TOP_LEFT" contentDisplay="RIGHT" mnemonicParsing="false" text="Minuuttia" toggleGroup="$yksikko" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <RadioButton alignment="TOP_LEFT" contentDisplay="RIGHT" mnemonicParsing="false" text="Minuuttia" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
+                           <toggleGroup>
+                              <ToggleGroup />
+                           </toggleGroup>
                         </RadioButton>
                         <Label prefHeight="27.0" prefWidth="64.0" text="Kassa" GridPane.rowIndex="3">
                            <font>
@@ -100,7 +103,7 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="saapumisValiKA" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="5">
@@ -215,27 +218,27 @@
                <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="384.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Downloads/rinne2.png" />
+                        <Image url="@../../resources/images/rinne2.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="89.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Downloads/rinne1.png" />
+                        <Image url="@../../resources/images/rinne1.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="64.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Downloads/kahvila.png" />
+                        <Image url="@../../resources/images/kahvila.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Downloads/vuokraamo.png" />
+                        <Image url="@../../resources/images/vuokraamo.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="206.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../Downloads/kassa.png" />
+                        <Image url="@../../resources/images/kassa.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>
@@ -249,23 +252,16 @@
             <Insets left="5.0" top="5.0" />
          </padding>
       </Label>
-      <ButtonBar layoutX="38.0" layoutY="728.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="112.0">
+      <ButtonBar layoutX="457.0" layoutY="730.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="230.0">
         <buttons>
             <Button mnemonicParsing="false" text="Nopeuta" />
             <Button mnemonicParsing="false" text="Hidasta" />
-            <Button mnemonicParsing="false" text="Simuloi" />
         </buttons>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
-         <padding>
-            <Insets right="170.0" />
-         </padding>
       </ButtonBar>
-      <ButtonBar layoutX="941.0" layoutY="720.0" prefHeight="40.0" prefWidth="85.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="929.0" AnchorPane.rightAnchor="5.0">
-        <buttons>
-          <Button mnemonicParsing="false" text="Tulokset" />
-        </buttons>
-      </ButtonBar>
+    <Button layoutX="928.0" layoutY="735.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Tulokset" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+      <Button layoutX="409.0" layoutY="736.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Simuloi" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="545.0" />
    </children>
 </AnchorPane>

@@ -30,11 +30,12 @@ public class OmaMoottori extends Moottori {
 
 		palvelupisteet = new Palvelupiste[6];
 
-		palvelupisteet[Palvelupiste.KASSA] = new Palvelupiste(new Normal(20, 6), tapahtumalista, TapahtumanTyyppi.DEP1);
+		palvelupisteet[Palvelupiste.KASSA] = new Palvelupiste(new Normal(20, 6), tapahtumalista, TapahtumanTyyppi.DEP1,
+				new Normal(20, 1));
 		palvelupisteet[Palvelupiste.VUOKRAAMO] = new Palvelupiste(new Normal(50, 15), tapahtumalista,
-				TapahtumanTyyppi.DEP2);
+				TapahtumanTyyppi.DEP2, new Normal(50, 5));
 		palvelupisteet[Palvelupiste.KAHVILA] = new Palvelupiste(new Normal(40, 10), tapahtumalista,
-				TapahtumanTyyppi.DEP3);
+				TapahtumanTyyppi.DEP3, new Normal(15, 5));
 		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(30, 35), tapahtumalista,
 				TapahtumanTyyppi.DEP4);
 		palvelupisteet[Palvelupiste.RINNE2] = new Palvelupiste(new Uniform(25, 28), tapahtumalista,
@@ -67,19 +68,19 @@ public class OmaMoottori extends Moottori {
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
 			palveluajat.put(Palvelupiste.KASSA, palvelupisteet[Palvelupiste.KASSA].getPalveluaikaSumma());
-			System.out.println(a.getId() + " KASSA" + a);
+			System.out.println(a.getId() + " KASSA " + a);
 			palvelupisteet[Palvelupiste.VUOKRAAMO].lisaaJonoon(a);
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
 			palveluajat.put(Palvelupiste.VUOKRAAMO, palvelupisteet[Palvelupiste.VUOKRAAMO].getPalveluaikaSumma());
-			System.out.println(a.getId() + " VUOKRAAMO" + a);
+			System.out.println(a.getId() + " VUOKRAAMO " + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
 			palveluajat.put(Palvelupiste.KAHVILA, palvelupisteet[Palvelupiste.KAHVILA].getPalveluaikaSumma());
-			System.out.println(a.getId() + " KAHVILA" + a);
+			System.out.println(a.getId() + " KAHVILA " + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP4:
@@ -90,7 +91,7 @@ public class OmaMoottori extends Moottori {
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
 			palveluajat.put(Palvelupiste.RINNE2, palvelupisteet[Palvelupiste.RINNE2].getPalveluaikaSumma());
-			System.out.println(a.getId() + " RINNE 2" + a);
+			System.out.println(a.getId() + " RINNE 2 " + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP6:
@@ -98,12 +99,12 @@ public class OmaMoottori extends Moottori {
 			palveluajat.put(Palvelupiste.VUOKRAAMOEXIT,
 					palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].getPalveluaikaSumma());
 			palvellutAsiakkaat++;
-			System.out.println(a.getId() + " LOPPU" + a);
+			System.out.println(a.getId() + " LOPPU " + a);
 			a.setPoistumisaika(Kello.getInstance().getAika());
 			a.raportti();
 			tulokset();
 			break;
-			
+
 		}
 	}
 
@@ -132,6 +133,9 @@ public class OmaMoottori extends Moottori {
 		System.out.println("U: " + kayttoaste);
 		System.out.println("X: " + suoritusteho + " asiakasta/sekunnissa");
 		System.out.println("S: " + palveluAikaKA);
+		System.out.println("Hinnat Kassa: " + palvelupisteet[Palvelupiste.KASSA].getHintojenSumma());
+		System.out.println("Hinnat Vuokraamo: " + palvelupisteet[Palvelupiste.VUOKRAAMO].getHintojenSumma());
+		System.out.println("Hinnat Kahvila: " + palvelupisteet[Palvelupiste.KAHVILA].getHintojenSumma());
 
 		// UUTTA graafista
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
