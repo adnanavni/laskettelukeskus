@@ -213,29 +213,29 @@
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="backgroundVasen" stylesheets="@EkaRuutuStyle.css">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="216.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="499.0">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="384.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/images/kassa.png" />
+                        <Image url="@../../../../Downloads/rinne2.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="57.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="89.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/images/kahvila.png" />
+                        <Image url="@../../../../Downloads/rinne1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="64.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/images/vuokraamo.png" />
+                        <Image url="@../../../../Downloads/kahvila.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="57.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/images/rinne1.png" />
+                        <Image url="@../../../../Downloads/vuokraamo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="206.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resources/images/rinne2.png" />
+                        <Image url="@../../../../Downloads/kassa.png" />
                      </image>
                   </ImageView>
                </children></AnchorPane>
