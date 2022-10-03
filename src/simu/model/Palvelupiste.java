@@ -14,6 +14,7 @@ public class Palvelupiste {
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
 	private ContinuousGenerator generator;
 	private ContinuousGenerator hinta;
+	double esimHinta;
 	private double hintojenSumma;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
@@ -56,7 +57,7 @@ public class Palvelupiste {
 		palveluaikaSumma += palveluaika;
 
 		if (hinta != null) {
-			double esimHinta = hinta.sample();
+			esimHinta = hinta.sample();
 			hintojenSumma += esimHinta;
 		}
 
@@ -77,5 +78,9 @@ public class Palvelupiste {
 
 	public double getHintojenSumma() {
 		return hintojenSumma;
+	}
+	
+	public double getEsimHinta() {
+		return esimHinta;
 	}
 }
