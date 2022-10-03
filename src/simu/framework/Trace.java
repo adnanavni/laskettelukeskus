@@ -10,9 +10,9 @@ public class Trace {
 		traceLevel = lvl;
 	}
 	public static void out(Level lvl, String txt){
-		if (lvl.ordinal() >= traceLevel.ordinal()){
+	//	if (lvl.ordinal() >= traceLevel.ordinal()){
 			System.out.println(txt);
-		}
+	//	} 
 	}
 	
 	
