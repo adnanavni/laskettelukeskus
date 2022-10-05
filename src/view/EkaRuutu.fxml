@@ -69,23 +69,20 @@
                            </opaqueInsets>
                         </TextField>
                         <RadioButton mnemonicParsing="false" text="Sekuntia" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <toggleGroup>
-                              <ToggleGroup />
-                           </toggleGroup>
                            <GridPane.margin>
                               <Insets left="80.0" />
                            </GridPane.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="yksikko" />
+                           </toggleGroup>
                         </RadioButton>
-                        <RadioButton alignment="TOP_LEFT" contentDisplay="RIGHT" mnemonicParsing="false" text="Minuuttia" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <RadioButton alignment="TOP_LEFT" contentDisplay="RIGHT" mnemonicParsing="false" text="Minuuttia" toggleGroup="$yksikko" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
-                           <toggleGroup>
-                              <ToggleGroup />
-                           </toggleGroup>
                         </RadioButton>
                         <Label prefHeight="27.0" prefWidth="64.0" text="Kassa" GridPane.rowIndex="3">
                            <font>
@@ -103,9 +100,9 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="saapumisValiKA" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="kassaSaapumisvali" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="kassaPalveluaika" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="kassaLippu" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="5">
                            <font>
                               <Font size="16.0" />
@@ -255,8 +252,8 @@
       </Label>
       <ButtonBar layoutX="457.0" layoutY="730.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="230.0">
         <buttons>
-            <Button mnemonicParsing="false" text="Nopeuta" />
-            <Button mnemonicParsing="false" text="Hidasta" />
+            <Button mnemonicParsing="false" onAction="#nopeuta" text="Nopeuta" />
+            <Button mnemonicParsing="false" onAction="#hidasta" text="Hidasta" />
         </buttons>
          <opaqueInsets>
             <Insets />

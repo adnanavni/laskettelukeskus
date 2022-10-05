@@ -3,6 +3,7 @@ package view;
 import java.io.IOException;
 
 import controller.IKontrolleriMtoV;
+import controller.IKontrolleriVtoM;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
 
-public class EkaRuutuKontrolleri implements IKontrolleriMtoV {
+public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	@FXML
 	private Button simuloiNappi;
@@ -28,6 +29,15 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV {
 
 	@FXML
 	private Label aikaLabel;
+
+	@FXML
+	private TextField kassaSaapumisvali;
+
+	@FXML
+	private TextField kassaPalveluaika;
+
+	@FXML
+	private TextField kassaLippu;
 
 	private OmaGUI omaGUI;
 
@@ -41,6 +51,7 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		moottori.setSimulointiaika(Double.parseDouble(kestoField.getText()));
 		moottori.setViive(10);
+
 		// ui.getVisualisointi().tyhjennaNaytto();
 		((Thread) moottori).start();
 		// ((Thread)moottori).run(); // Ei missään tapauksessa näin. Miksi?
@@ -80,6 +91,18 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV {
 	public void visualisoiAsiakas() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void nopeuta() {
+		// TODO Auto-generated method stub
+		moottori.setViive((long) (moottori.getViive() * 0.9));
+	}
+
+	@Override
+	public void hidasta() {
+		// TODO Auto-generated method stub
+		moottori.setViive((long) (moottori.getViive() * 1.10));
 	}
 
 }
