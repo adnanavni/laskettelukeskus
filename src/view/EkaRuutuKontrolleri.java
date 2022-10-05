@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -31,6 +32,12 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 	private Label aikaLabel;
 
 	@FXML
+	private RadioButton minuutti;
+
+	@FXML
+	private RadioButton sekunti;
+
+	@FXML
 	private TextField kassaSaapumisvali;
 
 	@FXML
@@ -39,7 +46,27 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 	@FXML
 	private TextField kassaLippu;
 
-	private OmaGUI omaGUI;
+	@FXML
+	private TextField vuokraamoPalveluaika;
+
+	@FXML
+	private TextField vuokraamoHinnat;
+
+	@FXML
+	private TextField kahvilaPalveluaika;
+
+	@FXML
+	private TextField kahvilaHinnat;
+
+	@FXML
+	private TextField ekaRinnePalveluaika;
+
+	@FXML
+	private TextField tokaRinnePalveluaika;
+
+	private double simulaatioAika;
+
+	OmaGUI omaGUI;
 
 	private IMoottori moottori;
 
@@ -49,8 +76,17 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	public void kaynnistaSimulointi() {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
-		moottori.setSimulointiaika(Double.parseDouble(kestoField.getText()));
+
+		if (minuutti.isSelected()) {
+			simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000 * 60;
+		} else if (sekunti.isSelected()) {
+			simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000;
+		}
+
+		moottori.setSimulointiaika(simulaatioAika);
 		moottori.setViive(10);
+
+		moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getText()));
 
 		// ui.getVisualisointi().tyhjennaNaytto();
 		((Thread) moottori).start();

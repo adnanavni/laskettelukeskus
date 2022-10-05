@@ -25,6 +25,7 @@ public class OmaMoottori extends Moottori {
 	private double hinta = 0;
 	private HashMap<Integer, Double> palveluAikaKA = new HashMap<>();
 	private HashMap<Integer, Double> asiakkaidenHinnat = new HashMap<>();
+	private double saapumisaikavali;
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) { // UUSI
 
@@ -45,12 +46,13 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[Palvelupiste.VUOKRAAMOEXIT] = new Palvelupiste(new Uniform(25, 28), tapahtumalista,
 				TapahtumanTyyppi.DEP6);
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(10, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
+		saapumisprosessi = new Saapumisprosessi(new Negexp(10), tapahtumalista, TapahtumanTyyppi.ARR1);
 
 	}
 
 	@Override
 	protected void alustukset() {
+		saapumisprosessi.setGeneraattori(new Negexp(saapumisaikavali));
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
 	}
 
@@ -156,5 +158,11 @@ public class OmaMoottori extends Moottori {
 		System.out.println("Asiakkaiden hinnat: " + asiakkaidenHinnat);
 
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
+	}
+
+	@Override
+	public void setSaapumisvaliKA(double aika) {
+		// kesken, pitäisi keksiä miten laskea KA!
+		this.saapumisaikavali = aika;
 	}
 }
