@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import controller.IKontrolleriMtoV;
 import controller.IKontrolleriVtoM;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,20 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	@FXML
 	private RadioButton sekunti;
+
+	private Label rinne1Label;
+
+	@FXML
+	private Label rinne2Label;
+
+	@FXML
+	private Label vuokraamoLabel;
+
+	@FXML
+	private Label kassaLabel;
+
+	@FXML
+	private Label kahvilaLabel;
 
 	@FXML
 	private TextField kassaSaapumisvali;
@@ -117,6 +132,26 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	}
 
+	public Label getRinne1Label() {
+		return rinne1Label;
+	}
+
+	public Label getRinne2Label() {
+		return rinne2Label;
+	}
+
+	public Label getVuokraamoLabel() {
+		return vuokraamoLabel;
+	}
+
+	public Label getKassaLabel() {
+		return kassaLabel;
+	}
+
+	public Label getKahvilaLabel() {
+		return kahvilaLabel;
+	}
+
 	@Override
 	public void naytaLoppuaika(double aika) {
 		// TODO Auto-generated method stub
@@ -139,6 +174,14 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 	public void hidasta() {
 		// TODO Auto-generated method stub
 		moottori.setViive((long) (moottori.getViive() * 1.10));
+	}
+
+	@Override
+	public void naytaJono1(Label l, int jono) {
+		Platform.runLater(() -> {
+			l.setText("Jono: " + Integer.toString(jono));
+		});
+
 	}
 
 }

@@ -72,7 +72,7 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
-
+			kontrolleri.naytaJono1(kontrolleri.getKassaLabel(), palvelupisteet[Palvelupiste.KASSA].jononPituus());
 			palveluajat.put(Palvelupiste.KASSA, palvelupisteet[Palvelupiste.KASSA].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.KASSA].getEsimHinta()));
 
@@ -81,16 +81,17 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
-
+			kontrolleri.naytaJono1(kontrolleri.getVuokraamoLabel(), palvelupisteet[Palvelupiste.VUOKRAAMO].jononPituus());
 			palveluajat.put(Palvelupiste.VUOKRAAMO, palvelupisteet[Palvelupiste.VUOKRAAMO].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta() + hinta));
 
 			System.out.println(a.getId() + " VUOKRAAMO " + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
+
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
-
+			kontrolleri.naytaJono1(kontrolleri.getKahvilaLabel(), palvelupisteet[Palvelupiste.KAHVILA].jononPituus());
 			palveluajat.put(Palvelupiste.KAHVILA, palvelupisteet[Palvelupiste.KAHVILA].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta() + hinta));
 
@@ -99,14 +100,14 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP4:
 			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
-
+			kontrolleri.naytaJono1(kontrolleri.getRinne1Label(), palvelupisteet[Palvelupiste.RINNE1].jononPituus());
 			palveluajat.put(Palvelupiste.RINNE1, palvelupisteet[Palvelupiste.RINNE1].getPalveluaikaSumma());
 
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
-
+			kontrolleri.naytaJono1(kontrolleri.getRinne2Label(), palvelupisteet[Palvelupiste.RINNE2].jononPituus());
 			palveluajat.put(Palvelupiste.RINNE2, palvelupisteet[Palvelupiste.RINNE2].getPalveluaikaSumma());
 
 			System.out.println(a.getId() + " RINNE 2 " + a);

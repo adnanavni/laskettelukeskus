@@ -64,6 +64,10 @@ public class Palvelupiste {
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi, Kello.getInstance().getAika() + palveluaika));
 	}
 
+	public int jononPituus() {
+		return jono.size();
+	}
+
 	public double getPalveluaikaSumma() {
 		return palveluaikaSumma;
 	}
