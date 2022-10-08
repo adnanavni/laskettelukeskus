@@ -42,9 +42,9 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet = new Palvelupiste[6];
 
 		palvelupisteet[Palvelupiste.KASSA] = new Palvelupiste(new Normal(kassaPalveluaika, 5), tapahtumalista,
-				TapahtumanTyyppi.DEP1, new Uniform(kassaHinta, kassaHinta + 1));
+				TapahtumanTyyppi.DEP1, new Uniform(kassaHinta, kassaHinta + 0.1));
 		palvelupisteet[Palvelupiste.VUOKRAAMO] = new Palvelupiste(new Normal(vuokraamoAika, 15), tapahtumalista,
-				TapahtumanTyyppi.DEP2, new Normal(vuokraamoHinta, 1));
+				TapahtumanTyyppi.DEP2, new Uniform(vuokraamoHinta, 1));
 		palvelupisteet[Palvelupiste.KAHVILA] = new Palvelupiste(new Normal(kahvilaAika, 10), tapahtumalista,
 				TapahtumanTyyppi.DEP3, new Normal(kahvilaHinta, 1));
 		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(ekaRinneAika, 35), tapahtumalista,
@@ -60,6 +60,9 @@ public class OmaMoottori extends Moottori {
 	@Override
 	protected void alustukset() {
 		saapumisprosessi.setGeneraattori(new Negexp(saapumisaikavali));
+		System.out.println(kassaHinta);
+		System.out.println(vuokraamoHinta);
+		System.out.println(kahvilaHinta);
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
 	}
 

@@ -38,6 +38,7 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 	@FXML
 	private RadioButton sekunti;
 
+	@FXML
 	private Label rinne1Label;
 
 	@FXML
