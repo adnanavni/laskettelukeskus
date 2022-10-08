@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -31,6 +32,18 @@ public class Visualisointi2 extends Canvas implements IVisualisointi {
 		gc.setFill(Color.RED);
 		gc.setFont(new Font(20));
 		gc.fillText("Asiakas " + asiakasLkm, 100, 100);
+
+	}
+
+	@Override
+	public void naytaJono() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void naytaJono1(Label l, int jono) {
+		// TODO Auto-generated method stub
 
 	}
 

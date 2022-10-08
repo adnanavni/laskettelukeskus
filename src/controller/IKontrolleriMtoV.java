@@ -10,7 +10,7 @@ public interface IKontrolleriMtoV {
 
 	public void visualisoiAsiakas();
 
-	public void naytaJono1(Label l, int jono);
+	void naytaJono(Label l, int jono);
 
 	public Label getRinne1Label();
 

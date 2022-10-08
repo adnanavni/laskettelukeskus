@@ -102,6 +102,17 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		moottori.setViive(10);
 
 		moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getText()));
+		moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getText()));
+		moottori.kassaHinta(Double.parseDouble(kassaLippu.getText()));
+
+		moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getText()));
+		moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getText()));
+
+		moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getText()));
+		moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getText()));
+
+		moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getText()));
+		moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getText()));
 
 		// ui.getVisualisointi().tyhjennaNaytto();
 		((Thread) moottori).start();
@@ -177,9 +188,9 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 	}
 
 	@Override
-	public void naytaJono1(Label l, int jono) {
+	public void naytaJono(Label l, int jono) {
 		Platform.runLater(() -> {
-			l.setText("Jono: " + Integer.toString(jono));
+			l.setText(Integer.toString(jono));
 		});
 
 	}

@@ -26,6 +26,14 @@ public class OmaMoottori extends Moottori {
 	private HashMap<Integer, Double> palveluAikaKA = new HashMap<>();
 	private HashMap<Integer, Double> asiakkaidenHinnat = new HashMap<>();
 	private double saapumisaikavali;
+	private double kassaPalveluaika;
+	private double kassaHinta;
+	private double vuokraamoAika;
+	private double vuokraamoHinta;
+	private double kahvilaAika;
+	private double kahvilaHinta;
+	private double ekaRinneAika;
+	private double tokaRinneAika;
 
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) { // UUSI
 
@@ -33,21 +41,20 @@ public class OmaMoottori extends Moottori {
 
 		palvelupisteet = new Palvelupiste[6];
 
-		palvelupisteet[Palvelupiste.KASSA] = new Palvelupiste(new Normal(20, 6), tapahtumalista, TapahtumanTyyppi.DEP1,
-				new Uniform(10, 20));
-		palvelupisteet[Palvelupiste.VUOKRAAMO] = new Palvelupiste(new Normal(50, 15), tapahtumalista,
-				TapahtumanTyyppi.DEP2, new Normal(50, 5));
-		palvelupisteet[Palvelupiste.KAHVILA] = new Palvelupiste(new Normal(40, 10), tapahtumalista,
-				TapahtumanTyyppi.DEP3, new Normal(20, 5));
-		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(30, 35), tapahtumalista,
+		palvelupisteet[Palvelupiste.KASSA] = new Palvelupiste(new Normal(kassaPalveluaika, 5), tapahtumalista,
+				TapahtumanTyyppi.DEP1, new Uniform(kassaHinta, kassaHinta + 1));
+		palvelupisteet[Palvelupiste.VUOKRAAMO] = new Palvelupiste(new Normal(vuokraamoAika, 15), tapahtumalista,
+				TapahtumanTyyppi.DEP2, new Normal(vuokraamoHinta, 1));
+		palvelupisteet[Palvelupiste.KAHVILA] = new Palvelupiste(new Normal(kahvilaAika, 10), tapahtumalista,
+				TapahtumanTyyppi.DEP3, new Normal(kahvilaHinta, 1));
+		palvelupisteet[Palvelupiste.RINNE1] = new Palvelupiste(new Uniform(ekaRinneAika, 35), tapahtumalista,
 				TapahtumanTyyppi.DEP4);
-		palvelupisteet[Palvelupiste.RINNE2] = new Palvelupiste(new Uniform(25, 28), tapahtumalista,
+		palvelupisteet[Palvelupiste.RINNE2] = new Palvelupiste(new Uniform(tokaRinneAika, 28), tapahtumalista,
 				TapahtumanTyyppi.DEP5);
 		palvelupisteet[Palvelupiste.VUOKRAAMOEXIT] = new Palvelupiste(new Uniform(25, 28), tapahtumalista,
 				TapahtumanTyyppi.DEP6);
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(10), tapahtumalista, TapahtumanTyyppi.ARR1);
-
+		saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
-			kontrolleri.naytaJono1(kontrolleri.getKassaLabel(), palvelupisteet[Palvelupiste.KASSA].jononPituus());
+			kontrolleri.naytaJono(kontrolleri.getKassaLabel(), palvelupisteet[Palvelupiste.KASSA].jononPituus());
 			palveluajat.put(Palvelupiste.KASSA, palvelupisteet[Palvelupiste.KASSA].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.KASSA].getEsimHinta()));
 
@@ -81,7 +88,8 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
-			kontrolleri.naytaJono1(kontrolleri.getVuokraamoLabel(), palvelupisteet[Palvelupiste.VUOKRAAMO].jononPituus());
+			kontrolleri.naytaJono(kontrolleri.getVuokraamoLabel(),
+					palvelupisteet[Palvelupiste.VUOKRAAMO].jononPituus());
 			palveluajat.put(Palvelupiste.VUOKRAAMO, palvelupisteet[Palvelupiste.VUOKRAAMO].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta() + hinta));
 
@@ -91,7 +99,7 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
-			kontrolleri.naytaJono1(kontrolleri.getKahvilaLabel(), palvelupisteet[Palvelupiste.KAHVILA].jononPituus());
+			kontrolleri.naytaJono(kontrolleri.getKahvilaLabel(), palvelupisteet[Palvelupiste.KAHVILA].jononPituus());
 			palveluajat.put(Palvelupiste.KAHVILA, palvelupisteet[Palvelupiste.KAHVILA].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta() + hinta));
 
@@ -100,14 +108,14 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP4:
 			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
-			kontrolleri.naytaJono1(kontrolleri.getRinne1Label(), palvelupisteet[Palvelupiste.RINNE1].jononPituus());
+			kontrolleri.naytaJono(kontrolleri.getRinne1Label(), palvelupisteet[Palvelupiste.RINNE1].jononPituus());
 			palveluajat.put(Palvelupiste.RINNE1, palvelupisteet[Palvelupiste.RINNE1].getPalveluaikaSumma());
 
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
-			kontrolleri.naytaJono1(kontrolleri.getRinne2Label(), palvelupisteet[Palvelupiste.RINNE2].jononPituus());
+			kontrolleri.naytaJono(kontrolleri.getRinne2Label(), palvelupisteet[Palvelupiste.RINNE2].jononPituus());
 			palveluajat.put(Palvelupiste.RINNE2, palvelupisteet[Palvelupiste.RINNE2].getPalveluaikaSumma());
 
 			System.out.println(a.getId() + " RINNE 2 " + a);
@@ -166,4 +174,38 @@ public class OmaMoottori extends Moottori {
 		// kesken, pitäisi keksiä miten laskea KA!
 		this.saapumisaikavali = aika;
 	}
+
+	public void kassaSaapumisaika(double aika) {
+		kassaPalveluaika = aika;
+	}
+
+	public void kassaHinta(double raha) {
+		kassaHinta = raha;
+	}
+
+	public void vuokraamoPalveluaika(double aika) {
+		vuokraamoAika = aika;
+	}
+
+	public void vuokraamoHinta(double raha) {
+		vuokraamoHinta = raha;
+	}
+
+	public void kahvilaPalveluaika(double aika) {
+		kahvilaAika = aika;
+
+	}
+
+	public void kahvilaHinta(double raha) {
+		kahvilaHinta = raha;
+	}
+
+	public void ekaRinnePalveluaika(double aika) {
+		ekaRinneAika = aika;
+	}
+
+	public void TokaRinnePalveluaika(double aika) {
+		tokaRinneAika = aika;
+	}
+
 }

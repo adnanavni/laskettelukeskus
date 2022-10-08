@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
 import view.ISimulaattorinUI;
@@ -54,5 +55,40 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV { // UUSI
 		});
 	}
 
+	@Override
+	public Label getRinne1Label() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Label getRinne2Label() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Label getVuokraamoLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Label getKassaLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Label getKahvilaLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void naytaJono(Label l, int jono) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

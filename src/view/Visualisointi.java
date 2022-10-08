@@ -2,6 +2,7 @@ package view;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 public class Visualisointi extends Canvas implements IVisualisointi {
@@ -30,6 +31,18 @@ public class Visualisointi extends Canvas implements IVisualisointi {
 		// j = (j + 12) % this.getHeight();
 		if (i == 0)
 			j += 10;
+	}
+
+	@Override
+	public void naytaJono() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void naytaJono1(Label l, int jono) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
