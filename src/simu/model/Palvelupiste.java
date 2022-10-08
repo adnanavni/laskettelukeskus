@@ -87,4 +87,12 @@ public class Palvelupiste {
 	public double getEsimHinta() {
 		return esimHinta;
 	}
+
+	public void setGenerator(ContinuousGenerator generator) {
+		this.generator = generator;
+	}
+
+	public void setHinta(ContinuousGenerator hinta) {
+		this.hinta = hinta;
+	}
 }
