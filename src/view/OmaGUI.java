@@ -30,7 +30,6 @@ import javafx.stage.Stage;
  	       
 
  	        initRootLayout();
-
  	        showEkascene();
  	    }
 

@@ -181,6 +181,7 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 		Stage stage = new Stage();
 		stage.setTitle("Tulokset");
+		stage.setResizable(false);
 		stage.setScene(new Scene(root));
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner(((Node) event.getSource()).getScene().getWindow());

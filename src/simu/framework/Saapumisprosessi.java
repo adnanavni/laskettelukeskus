@@ -1,21 +1,23 @@
 package simu.framework;
 
 import eduni.distributions.ContinuousGenerator;
+import eduni.distributions.DiscreteGenerator;
+import eduni.distributions.Poisson;
 import simu.model.TapahtumanTyyppi;
 
 public class Saapumisprosessi {
 
-	private ContinuousGenerator generaattori;
+	private DiscreteGenerator generaattori;
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi tyyppi;
 
-	public Saapumisprosessi(ContinuousGenerator g, Tapahtumalista tl, TapahtumanTyyppi tyyppi) {
+	public Saapumisprosessi(DiscreteGenerator g, Tapahtumalista tl, TapahtumanTyyppi tyyppi) {
 		this.generaattori = g;
 		this.tapahtumalista = tl;
 		this.tyyppi = tyyppi;
 	}
 
-	public void setGeneraattori(ContinuousGenerator generaattori) {
+	public void setGeneraattori(DiscreteGenerator generaattori) {
 		this.generaattori = generaattori;
 	}
 

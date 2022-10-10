@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 import controller.IKontrolleriMtoV;
+import eduni.distributions.DiscreteGenerator;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
+import eduni.distributions.Poisson;
 import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Moottori;
@@ -54,12 +56,12 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[Palvelupiste.VUOKRAAMOEXIT] = new Palvelupiste(new Uniform(1, 2), tapahtumalista,
 				TapahtumanTyyppi.DEP6);
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(15, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
+		saapumisprosessi = new Saapumisprosessi(new Poisson(15, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 	}
 
 	@Override
 	protected void alustukset() {
-		saapumisprosessi.setGeneraattori(new Negexp(saapumisaikavali));
+		saapumisprosessi.setGeneraattori(new Poisson(saapumisaikavali));
 
 		palvelupisteet[Palvelupiste.KASSA].setGenerator(new Normal(kassaPalveluaika, 5));
 		palvelupisteet[Palvelupiste.KASSA].setHinta(new Uniform(kassaHinta, kassaHinta + 1));
