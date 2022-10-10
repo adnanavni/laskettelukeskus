@@ -63,7 +63,7 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="kestoField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="kestoField" promptText="1000" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -100,9 +100,9 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="kassaSaapumisvali" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="kassaPalveluaika" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="kassaLippu" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="kassaSaapumisvali" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="kassaPalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="kassaLippu" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="5">
                            <font>
                               <Font size="16.0" />
@@ -146,8 +146,8 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="vuokraamoPalveluaika" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField fx:id="vuokraamoHinnat" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="vuokraamoPalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="vuokraamoHinnat" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label text="Kahvila" GridPane.rowIndex="10">
                            <font>
                               <Font name="System Bold" size="20.0" />
@@ -204,10 +204,10 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="kahvilaPalveluaika" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <TextField fx:id="kahvilaHinnat" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                        <TextField fx:id="ekaRinnePalveluaika" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                        <TextField fx:id="tokaRinnePalveluaika" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                        <TextField fx:id="kahvilaPalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="kahvilaHinnat" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="ekaRinnePalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <TextField fx:id="tokaRinnePalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                      </children>
                   </GridPane>
                </children></AnchorPane>

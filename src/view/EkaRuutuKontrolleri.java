@@ -95,30 +95,77 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 
 		if (minuutti.isSelected()) {
-			simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000 * 60;
+			if (kestoField.getText().isEmpty()) {
+				simulaatioAika = Double.parseDouble(kestoField.getPromptText());
+			} else {
+				simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000 * 60;
+			}
 		} else if (sekunti.isSelected()) {
-			simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000;
+			if (kestoField.getText().isEmpty()) {
+				simulaatioAika = Double.parseDouble(kestoField.getPromptText());
+			} else {
+				simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000;
+			}
 		}
 
 		moottori.setSimulointiaika(simulaatioAika);
 		moottori.setViive(10);
 
-		moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getText()));
-		moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getText()));
-		moottori.kassaHinta(Double.parseDouble(kassaLippu.getText()));
+		if (kassaSaapumisvali.getText().isEmpty()) {
+			moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getPromptText()));
+		} else {
+			moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getText()));
+		}
 
-		moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getText()));
-		moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getText()));
+		if (kassaPalveluaika.getText().isEmpty()) {
+			moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getPromptText()));
+		} else {
+			moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getText()));
+		}
 
-		moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getText()));
-		moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getText()));
+		if (kassaLippu.getText().isEmpty()) {
+			moottori.kassaHinta(Double.parseDouble(kassaLippu.getPromptText()));
+		} else {
+			moottori.kassaHinta(Double.parseDouble(kassaLippu.getText()));
+		}
 
-		moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getText()));
-		moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getText()));
+		if (vuokraamoPalveluaika.getText().isEmpty()) {
+			moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getPromptText()));
+		} else {
+			moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getText()));
+		}
 
-		// ui.getVisualisointi().tyhjennaNaytto();
+		if (vuokraamoHinnat.getText().isEmpty()) {
+			moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getPromptText()));
+		} else {
+			moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getText()));
+		}
+
+		if (kahvilaPalveluaika.getText().isEmpty()) {
+			moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getPromptText()));
+		} else {
+			moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getText()));
+		}
+
+		if (kahvilaHinnat.getText().isEmpty()) {
+			moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getPromptText()));
+		} else {
+			moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getText()));
+		}
+
+		if (ekaRinnePalveluaika.getText().isEmpty()) {
+			moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getPromptText()));
+		} else {
+			moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getText()));
+		}
+
+		if (tokaRinnePalveluaika.getText().isEmpty()) {
+			moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getPromptText()));
+		} else {
+			moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getText()));
+		}
+
 		((Thread) moottori).start();
-		// ((Thread)moottori).run(); // Ei missään tapauksessa näin. Miksi?
 	}
 
 	@FXML
