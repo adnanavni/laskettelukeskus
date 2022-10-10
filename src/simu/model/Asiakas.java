@@ -17,7 +17,7 @@ public class Asiakas {
 	LinkedList<Integer> reitti = new LinkedList<>();
 	private double maksu;
 	// rinne 1 on suosituin, joten sen mukainen jakauma
-	Normal jakauma = new Normal(3.5, 0.75);
+	Normal jakauma = new Normal(3.0, 1);
 
 	public Asiakas(int reitinpituus) {
 		id = i++;

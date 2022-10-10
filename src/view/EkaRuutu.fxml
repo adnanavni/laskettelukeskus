@@ -238,7 +238,7 @@
                         <Image url="@../../resources/images/kassa.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="aikaLabel" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="64.0" text="Aika: " AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <Label fx:id="aikaLabel" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="126.0" text="Aika: " AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                   <Label fx:id="rinne1Label" layoutX="135.0" layoutY="231.0" prefHeight="26.0" prefWidth="57.0" text="Jono: " />
                   <Label fx:id="rinne2Label" layoutX="430.0" layoutY="218.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
                   <Label fx:id="kahvilaLabel" layoutX="106.0" layoutY="429.0" prefHeight="30.0" prefWidth="58.0" text="Jono: " />

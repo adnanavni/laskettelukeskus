@@ -1,6 +1,7 @@
 package view;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import controller.IKontrolleriMtoV;
 import controller.IKontrolleriVtoM;
@@ -192,6 +193,15 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 	public void naytaJono(Label l, int jono) {
 		Platform.runLater(() -> {
 			l.setText(Integer.toString(jono));
+		});
+
+	}
+
+	@Override
+	public void naytaAika(double aika) {
+		Platform.runLater(() -> {
+			DecimalFormat f = new DecimalFormat("00.00");
+			aikaLabel.setText("Aika: " + f.format(aika));
 		});
 
 	}

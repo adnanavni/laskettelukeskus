@@ -22,4 +22,6 @@ public interface IKontrolleriMtoV {
 
 	public Label getKahvilaLabel();
 
+	void naytaAika(double aika);
+
 }

@@ -8,5 +8,7 @@ public interface IKontrolleriVtoM {
 		public void nopeuta();
 		public void hidasta();
 
+		void naytaAika(double aika);
+
 		
 }

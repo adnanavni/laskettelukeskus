@@ -91,4 +91,10 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV { // UUSI
 		
 	}
 
+	@Override
+	public void naytaAika(double aika) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

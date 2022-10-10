@@ -50,6 +50,7 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET MÃ
 		while (simuloidaan()){
 			viive(); // UUSI
 			kello.setAika(nykyaika());
+			kontrolleri.naytaAika(kello.getAika());
 			suoritaBTapahtumat();
 			yritaCTapahtumat();
 		}
