@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public interface IKontrolleriMtoV {
@@ -22,6 +23,7 @@ public interface IKontrolleriMtoV {
 
 	public Label getKahvilaLabel();
 
-	void naytaAika(double aika);
+	public void naytaAika(double aika);
 
+	public Button simuloiNappi();
 }

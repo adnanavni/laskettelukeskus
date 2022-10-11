@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 import controller.IKontrolleriMtoV;
-import eduni.distributions.DiscreteGenerator;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
-import eduni.distributions.Poisson;
 import eduni.distributions.Uniform;
 import simu.framework.Kello;
 import simu.framework.Moottori;
@@ -17,7 +15,7 @@ import simu.framework.Tapahtuma;
 public class OmaMoottori extends Moottori {
 
 	private Saapumisprosessi saapumisprosessi;
-	private int reitinPituus = ThreadLocalRandom.current().nextInt(5, 25);
+	private int reitinPituus = ThreadLocalRandom.current().nextInt(5, 20);
 	private int saapuneetAsiakkaat;
 	private int palvellutAsiakkaat;
 	private HashMap<Integer, Double> palveluajat = new HashMap<>();
@@ -56,12 +54,13 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[Palvelupiste.VUOKRAAMOEXIT] = new Palvelupiste(new Uniform(1, 2), tapahtumalista,
 				TapahtumanTyyppi.DEP6);
 
-		saapumisprosessi = new Saapumisprosessi(new Poisson(15, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
+		saapumisprosessi = new Saapumisprosessi(new Negexp(1, 1), tapahtumalista, TapahtumanTyyppi.ARR1);
 	}
 
 	@Override
 	protected void alustukset() {
-		saapumisprosessi.setGeneraattori(new Poisson(saapumisaikavali));
+		Kello.getInstance().setAika(0);
+		saapumisprosessi.setGeneraattori(new Negexp(saapumisaikavali));
 
 		palvelupisteet[Palvelupiste.KASSA].setGenerator(new Normal(kassaPalveluaika, 5));
 		palvelupisteet[Palvelupiste.KASSA].setHinta(new Uniform(kassaHinta, kassaHinta + 1));
@@ -94,7 +93,9 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
+
 			kontrolleri.naytaJono(kontrolleri.getKassaLabel(), palvelupisteet[Palvelupiste.KASSA].jononPituus());
+
 			palveluajat.put(Palvelupiste.KASSA, palvelupisteet[Palvelupiste.KASSA].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.KASSA].getEsimHinta()));
 
@@ -103,8 +104,10 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
+
 			kontrolleri.naytaJono(kontrolleri.getVuokraamoLabel(),
 					palvelupisteet[Palvelupiste.VUOKRAAMO].jononPituus());
+
 			palveluajat.put(Palvelupiste.VUOKRAAMO, palvelupisteet[Palvelupiste.VUOKRAAMO].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta() + hinta));
 
@@ -114,7 +117,9 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
+
 			kontrolleri.naytaJono(kontrolleri.getKahvilaLabel(), palvelupisteet[Palvelupiste.KAHVILA].jononPituus());
+
 			palveluajat.put(Palvelupiste.KAHVILA, palvelupisteet[Palvelupiste.KAHVILA].getPalveluaikaSumma());
 			asiakkaidenHinnat.put(a.getId(), a.maksa(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta() + hinta));
 
@@ -123,14 +128,18 @@ public class OmaMoottori extends Moottori {
 			break;
 		case DEP4:
 			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
+
 			kontrolleri.naytaJono(kontrolleri.getRinne1Label(), palvelupisteet[Palvelupiste.RINNE1].jononPituus());
+
 			palveluajat.put(Palvelupiste.RINNE1, palvelupisteet[Palvelupiste.RINNE1].getPalveluaikaSumma());
 
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
+
 			kontrolleri.naytaJono(kontrolleri.getRinne2Label(), palvelupisteet[Palvelupiste.RINNE2].jononPituus());
+
 			palveluajat.put(Palvelupiste.RINNE2, palvelupisteet[Palvelupiste.RINNE2].getPalveluaikaSumma());
 
 			System.out.println(a.getId() + " RINNE 2 " + a);
@@ -143,7 +152,9 @@ public class OmaMoottori extends Moottori {
 					palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].getPalveluaikaSumma());
 
 			System.out.println(a.getId() + " LOPPU " + a);
+
 			palvellutAsiakkaat++;
+
 			a.setPoistumisaika(Kello.getInstance().getAika());
 			a.raportti();
 			tulokset();

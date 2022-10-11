@@ -63,7 +63,7 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="kestoField" promptText="1000" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <TextField fx:id="kestoField" promptText="120" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -92,7 +92,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label text="Saapumisväliajan keskiarvo (min):" GridPane.rowIndex="4">
+                        <Label text="Aikaa asiakkaiden välissä(ms):" GridPane.rowIndex="4">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -100,10 +100,10 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="kassaSaapumisvali" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <TextField fx:id="kassaPalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="kassaLippu" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="5">
+                        <TextField fx:id="kassaSaapumisvali" promptText="250" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="kassaPalveluaika" promptText="30" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="kassaLippu" promptText="20" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Palveluajan keskiarvo (ms):" GridPane.rowIndex="5">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -130,7 +130,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="8">
+                        <Label text="Palveluajan keskiarvo (ms):" GridPane.rowIndex="8">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -146,8 +146,8 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="vuokraamoPalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField fx:id="vuokraamoHinnat" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="vuokraamoPalveluaika" promptText="50" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="vuokraamoHinnat" promptText="50" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <Label text="Kahvila" GridPane.rowIndex="10">
                            <font>
                               <Font name="System Bold" size="20.0" />
@@ -156,7 +156,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="11">
+                        <Label text="Palveluajan keskiarvo (ms):" GridPane.rowIndex="11">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -180,7 +180,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="14">
+                        <Label text="Palveluajan keskiarvo (ms):" GridPane.rowIndex="14">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -196,7 +196,7 @@
                               <Insets left="5.0" />
                            </padding>
                         </Label>
-                        <Label text="Palveluajan keskiarvo (min):" GridPane.rowIndex="16">
+                        <Label text="Palveluajan keskiarvo (ms):" GridPane.rowIndex="16">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -204,46 +204,71 @@
                               <Insets left="3.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="kahvilaPalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <TextField fx:id="kahvilaHinnat" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                        <TextField fx:id="ekaRinnePalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                        <TextField fx:id="tokaRinnePalveluaika" promptText="5" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                        <TextField fx:id="kahvilaPalveluaika" promptText="60" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="kahvilaHinnat" promptText="30" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="ekaRinnePalveluaika" promptText="65" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <TextField fx:id="tokaRinnePalveluaika" promptText="80" GridPane.columnIndex="1" GridPane.rowIndex="16" />
                      </children>
                   </GridPane>
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="backgroundVasen" stylesheets="@EkaRuutuStyle.css">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="384.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="413.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resources/images/rinne2.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="89.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="68.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resources/images/rinne1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="64.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="52.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resources/images/kahvila.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="406.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resources/images/vuokraamo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="206.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="230.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../resources/images/kassa.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="aikaLabel" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="126.0" text="Aika: " AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                  <Label fx:id="rinne1Label" layoutX="135.0" layoutY="231.0" prefHeight="26.0" prefWidth="57.0" text="Jono: " />
-                  <Label fx:id="rinne2Label" layoutX="430.0" layoutY="218.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
-                  <Label fx:id="kahvilaLabel" layoutX="106.0" layoutY="429.0" prefHeight="30.0" prefWidth="58.0" text="Jono: " />
-                  <Label fx:id="vuokraamoLabel" layoutX="405.0" layoutY="418.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
-                  <Label fx:id="kassaLabel" layoutX="258.0" layoutY="627.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
+                  <Label fx:id="rinne1Label" layoutX="115.0" layoutY="218.0" prefHeight="26.0" prefWidth="57.0" text="Jono: " />
+                  <Label fx:id="rinne2Label" layoutX="459.0" layoutY="218.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
+                  <Label fx:id="kahvilaLabel" layoutX="103.0" layoutY="474.0" prefHeight="30.0" prefWidth="58.0" text="Jono: " />
+                  <Label fx:id="vuokraamoLabel" layoutX="461.0" layoutY="475.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
+                  <Label fx:id="kassaLabel" layoutX="278.0" layoutY="624.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
+                  <Label layoutX="99.0" layoutY="39.0" text="Rinne 1">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="444.0" layoutY="39.0" text="Rinne 2">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="91.0" layoutY="297.0" text="Kahvila">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="423.0" layoutY="297.0" text="Vuokraamo">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="274.0" layoutY="489.0" text="Kassa">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
         </items>
       </SplitPane>

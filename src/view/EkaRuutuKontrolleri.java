@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -83,6 +85,8 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	private double simulaatioAika;
 
+	Alert error = new Alert(AlertType.ERROR);
+
 	OmaGUI omaGUI;
 
 	private IMoottori moottori;
@@ -94,75 +98,16 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 	public void kaynnistaSimulointi() {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 
-		if (minuutti.isSelected()) {
-			if (kestoField.getText().isEmpty()) {
-				simulaatioAika = Double.parseDouble(kestoField.getPromptText());
-			} else {
-				simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000 * 60;
-			}
-		} else if (sekunti.isSelected()) {
-			if (kestoField.getText().isEmpty()) {
-				simulaatioAika = Double.parseDouble(kestoField.getPromptText());
-			} else {
-				simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000;
-			}
-		}
+		radioButtonit();
 
 		moottori.setSimulointiaika(simulaatioAika);
 		moottori.setViive(10);
 
-		if (kassaSaapumisvali.getText().isEmpty()) {
-			moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getPromptText()));
-		} else {
-			moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getText()));
-		}
-
-		if (kassaPalveluaika.getText().isEmpty()) {
-			moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getPromptText()));
-		} else {
-			moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getText()));
-		}
-
-		if (kassaLippu.getText().isEmpty()) {
-			moottori.kassaHinta(Double.parseDouble(kassaLippu.getPromptText()));
-		} else {
-			moottori.kassaHinta(Double.parseDouble(kassaLippu.getText()));
-		}
-
-		if (vuokraamoPalveluaika.getText().isEmpty()) {
-			moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getPromptText()));
-		} else {
-			moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getText()));
-		}
-
-		if (vuokraamoHinnat.getText().isEmpty()) {
-			moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getPromptText()));
-		} else {
-			moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getText()));
-		}
-
-		if (kahvilaPalveluaika.getText().isEmpty()) {
-			moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getPromptText()));
-		} else {
-			moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getText()));
-		}
-
-		if (kahvilaHinnat.getText().isEmpty()) {
-			moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getPromptText()));
-		} else {
-			moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getText()));
-		}
-
-		if (ekaRinnePalveluaika.getText().isEmpty()) {
-			moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getPromptText()));
-		} else {
-			moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getText()));
-		}
-
-		if (tokaRinnePalveluaika.getText().isEmpty()) {
-			moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getPromptText()));
-		} else {
-			moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getText()));
+		try {
+			alkuarvot();
+		} catch (NumberFormatException e) {
+			error.setContentText("Laita kenttiin vain numeroita!");
+			error.show();
 		}
 
 		((Thread) moottori).start();
@@ -251,6 +196,85 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 			DecimalFormat f = new DecimalFormat("00.00");
 			aikaLabel.setText("Aika: " + f.format(aika));
 		});
+
+	}
+
+	public Button simuloiNappi() {
+		return simuloiNappi;
+	}
+
+	public void radioButtonit() {
+
+		if (minuutti.isSelected()) {
+			if (kestoField.getText().isEmpty()) {
+				simulaatioAika = Double.parseDouble(kestoField.getPromptText()) * 1000 * 60;
+			} else {
+				simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000 * 60;
+			}
+		} else if (sekunti.isSelected()) {
+			if (kestoField.getText().isEmpty()) {
+				simulaatioAika = Double.parseDouble(kestoField.getPromptText()) * 1000;
+			} else {
+				simulaatioAika = Double.parseDouble(kestoField.getText()) * 1000;
+			}
+		}
+	}
+
+	public void alkuarvot() {
+
+		if (kassaSaapumisvali.getText().isEmpty()) {
+			moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getPromptText()));
+		} else {
+			moottori.setSaapumisvaliKA(Double.parseDouble(kassaSaapumisvali.getText()));
+		}
+
+		if (kassaPalveluaika.getText().isEmpty()) {
+			moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getPromptText()));
+		} else {
+			moottori.kassaSaapumisaika(Double.parseDouble(kassaPalveluaika.getText()));
+		}
+
+		if (kassaLippu.getText().isEmpty()) {
+			moottori.kassaHinta(Double.parseDouble(kassaLippu.getPromptText()));
+		} else {
+			moottori.kassaHinta(Double.parseDouble(kassaLippu.getText()));
+		}
+
+		if (vuokraamoPalveluaika.getText().isEmpty()) {
+			moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getPromptText()));
+		} else {
+			moottori.vuokraamoPalveluaika(Double.parseDouble(vuokraamoPalveluaika.getText()));
+		}
+
+		if (vuokraamoHinnat.getText().isEmpty()) {
+			moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getPromptText()));
+		} else {
+			moottori.vuokraamoHinta(Double.parseDouble(vuokraamoHinnat.getText()));
+		}
+
+		if (kahvilaPalveluaika.getText().isEmpty()) {
+			moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getPromptText()));
+		} else {
+			moottori.kahvilaPalveluaika(Double.parseDouble(kahvilaPalveluaika.getText()));
+		}
+
+		if (kahvilaHinnat.getText().isEmpty()) {
+			moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getPromptText()));
+		} else {
+			moottori.kahvilaHinta(Double.parseDouble(kahvilaHinnat.getText()));
+		}
+
+		if (ekaRinnePalveluaika.getText().isEmpty()) {
+			moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getPromptText()));
+		} else {
+			moottori.ekaRinnePalveluaika(Double.parseDouble(ekaRinnePalveluaika.getText()));
+		}
+
+		if (tokaRinnePalveluaika.getText().isEmpty()) {
+			moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getPromptText()));
+		} else {
+			moottori.TokaRinnePalveluaika(Double.parseDouble(tokaRinnePalveluaika.getText()));
+		}
 
 	}
 
