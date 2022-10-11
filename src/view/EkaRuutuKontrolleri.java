@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 import controller.IKontrolleriMtoV;
 import controller.IKontrolleriVtoM;
+import dao.DAO;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -91,6 +92,8 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	private IMoottori moottori;
 
+	private DAO dao = new DAO();
+
 	public void setMainApp(OmaGUI mainApp) {
 		this.omaGUI = mainApp;
 	}
@@ -108,6 +111,8 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		} catch (NumberFormatException e) {
 			error.setContentText("Laita kenttiin vain numeroita!");
 			error.show();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		((Thread) moottori).start();
@@ -261,5 +266,4 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		}
 
 	}
-
 }

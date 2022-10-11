@@ -2,6 +2,6 @@ package dao;
 
 public interface IDAO {
 
-	public void tallennaDataa();
+	public void tallennaLKData();
 
 }

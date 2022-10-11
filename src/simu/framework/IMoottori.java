@@ -28,4 +28,5 @@ public interface IMoottori { // UUSI
 
 	public void TokaRinnePalveluaika(double aika);
 
+	public double getAika();
 }

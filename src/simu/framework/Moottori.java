@@ -1,6 +1,7 @@
 package simu.framework;
 
 import controller.IKontrolleriMtoV;
+import dao.DAO;
 import simu.model.Palvelupiste;
 
 public abstract class Moottori extends Thread implements IMoottori { // UUDET MÃ„Ã„RITYKSET
@@ -12,6 +13,8 @@ public abstract class Moottori extends Thread implements IMoottori { // UUDET MÃ
 
 	protected Tapahtumalista tapahtumalista;
 	protected Palvelupiste[] palvelupisteet;
+
+	private DAO dao = new DAO();
 
 	protected IKontrolleriMtoV kontrolleri; // UUSI
 
@@ -55,6 +58,7 @@ public abstract class Moottori extends Thread implements IMoottori { // UUDET MÃ
 		}
 		tulokset();
 		kontrolleri.simuloiNappi().setDisable(false);
+		dao.tallenna();
 	}
 
 	private void suoritaBTapahtumat() {
