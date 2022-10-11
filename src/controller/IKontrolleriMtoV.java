@@ -7,10 +7,6 @@ public interface IKontrolleriMtoV {
 
 	// Rajapinta, joka tarjotaan moottorille:
 
-	public void naytaLoppuaika(double aika);
-
-	public void visualisoiAsiakas();
-
 	void naytaJono(Label l, int jono);
 
 	public Label getRinne1Label();

@@ -89,7 +89,6 @@ public class OmaMoottori extends Moottori {
 			saapuneetAsiakkaat++;
 
 			saapumisprosessi.generoiSeuraava();
-			kontrolleri.visualisoiAsiakas();
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
@@ -192,12 +191,10 @@ public class OmaMoottori extends Moottori {
 		System.out.println("Hinnat Kahvila: " + palvelupisteet[Palvelupiste.KAHVILA].getHintojenSumma());
 		System.out.println("Asiakkaiden hinnat: " + asiakkaidenHinnat);
 
-		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 	}
 
 	@Override
 	public void setSaapumisvaliKA(double aika) {
-		// kesken, pitäisi keksiä miten laskea KA!
 		this.saapumisaikavali = aika;
 	}
 
@@ -233,5 +230,4 @@ public class OmaMoottori extends Moottori {
 	public void TokaRinnePalveluaika(double aika) {
 		tokaRinneAika = aika;
 	}
-
 }

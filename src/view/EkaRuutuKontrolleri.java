@@ -158,27 +158,11 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		return kahvilaLabel;
 	}
 
-	@Override
-	public void naytaLoppuaika(double aika) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visualisoiAsiakas() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void nopeuta() {
-		// TODO Auto-generated method stub
 		moottori.setViive((long) (moottori.getViive() * 0.9));
 	}
 
-	@Override
 	public void hidasta() {
-		// TODO Auto-generated method stub
 		moottori.setViive((long) (moottori.getViive() * 1.10));
 	}
 
