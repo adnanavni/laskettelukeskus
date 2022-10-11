@@ -17,37 +17,26 @@ import simu.framework.Tapahtuma;
 public class OmaMoottori extends Moottori {
 
 	private Saapumisprosessi saapumisprosessi;
+
 	private int reitinPituus = ThreadLocalRandom.current().nextInt(5, 20);
-	private int saapuneetAsiakkaat;
-	private int palvellutAsiakkaat;
 	private HashMap<Integer, Double> palveluajat = new HashMap<>();
 	private HashMap<Integer, Double> kayttoaste = new HashMap<>();
-	private double kokonaisaika;
-	private double suoritusteho;
-	private double hinta = 0;
 	private HashMap<Integer, Double> palveluAikaKA = new HashMap<>();
 	private ArrayList<Double> asiakkaidenHinnat = new ArrayList<>();
-	private double saapumisaikavali;
-	private double kassaPalveluaika;
-	private double kassaHinta;
-	private double vuokraamoAika;
-	private double vuokraamoHinta;
-	private double kahvilaAika;
-	private double kahvilaHinta;
-	private double ekaRinneAika;
-	private double tokaRinneAika;
-	private double kokonaislapimenoaika;
-	private double lapimenoKA;
-	private double jononpituusKA;
+	private ArrayList<Integer> reitinPituudet = new ArrayList<>();
+
+	private int saapuneetAsiakkaat;
+	private int palvellutAsiakkaat;
+
+	private double kokonaisaika, suoritusteho, saapumisaikavali, jononpituusKA, reitinPituudetKA, lapimenoKA,
+			kassaPalveluaika, kassaHinta, vuokraamoAika, vuokraamoHinta, kahvilaAika, kahvilaHinta, ekaRinneAika,
+			tokaRinneAika, kokonaislapimenoaika, asiakkaidenHinnatKA, asiakkaidenVietettyAika;
+
 	private int kassaAsiakasCounter = 0;
 	private int vuokraamoAsiakasCounter = 0;
 	private int kahvilaAsiakasCounter = 0;
 	private int rinne1AsiakasCounter = 0;
 	private int rinne2AsiakasCounter = 0;
-	private ArrayList<Integer> reitinPituudet = new ArrayList();
-	private double reitinPituudetKA;
-	private double asiakkaidenHinnatKA;
-	private double asiakkaidenVietettyAika;
 
 	private DAO dao = new DAO();
 
@@ -79,13 +68,13 @@ public class OmaMoottori extends Moottori {
 		saapumisprosessi.setGeneraattori(new Negexp(saapumisaikavali));
 
 		palvelupisteet[Palvelupiste.KASSA].setGenerator(new Normal(kassaPalveluaika, 5));
-		palvelupisteet[Palvelupiste.KASSA].setHinta(new Uniform(kassaHinta, kassaHinta + 1));
+		palvelupisteet[Palvelupiste.KASSA].setHinta(new Uniform(kassaHinta - 1, kassaHinta + 1));
 
 		palvelupisteet[Palvelupiste.VUOKRAAMO].setGenerator(new Normal(vuokraamoAika, 10));
-		palvelupisteet[Palvelupiste.VUOKRAAMO].setHinta(new Uniform(vuokraamoHinta, vuokraamoHinta + 10));
+		palvelupisteet[Palvelupiste.VUOKRAAMO].setHinta(new Uniform(vuokraamoHinta - 10, vuokraamoHinta + 10));
 
 		palvelupisteet[Palvelupiste.KAHVILA].setGenerator(new Normal(kahvilaAika, 10));
-		palvelupisteet[Palvelupiste.KAHVILA].setHinta(new Uniform(kahvilaHinta, kahvilaHinta + 10));
+		palvelupisteet[Palvelupiste.KAHVILA].setHinta(new Uniform(kahvilaHinta - 10, kahvilaHinta + 10));
 
 		palvelupisteet[Palvelupiste.RINNE1].setGenerator(new Uniform(ekaRinneAika, ekaRinneAika + 1));
 		palvelupisteet[Palvelupiste.RINNE2].setGenerator(new Uniform(tokaRinneAika, tokaRinneAika + 1));
@@ -104,7 +93,6 @@ public class OmaMoottori extends Moottori {
 			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas(reitinPituus));
 			reitinPituudet.add(reitinPituus);
 			saapuneetAsiakkaat++;
-
 			saapumisprosessi.generoiSeuraava();
 			break;
 		case DEP1:
@@ -183,8 +171,6 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-
-		// VANHAA tekstipohjaista
 		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
 
 		kokonaisaika = Kello.getInstance().getAika();
@@ -193,11 +179,11 @@ public class OmaMoottori extends Moottori {
 			kayttoaste.put(i, (palveluajat.get(i) / kokonaisaika * 100));
 		}
 
-		suoritusteho = palvellutAsiakkaat / kokonaisaika;
-
 		for (int i = 0; i < 5; i++) {
 			palveluAikaKA.put(i, (palveluajat.get(i) / palvellutAsiakkaat));
 		}
+
+		suoritusteho = palvellutAsiakkaat / kokonaisaika;
 
 		lapimenoKA = kokonaislapimenoaika / palvellutAsiakkaat;
 
@@ -208,6 +194,10 @@ public class OmaMoottori extends Moottori {
 			summa += reitinPituudet.get(i);
 		}
 		reitinPituudetKA = summa / reitinPituudet.size();
+
+		double hinnatSumma = palvelupisteet[Palvelupiste.KASSA].getHintojenSumma()
+				+ palvelupisteet[Palvelupiste.VUOKRAAMO].getHintojenSumma()
+				+ palvelupisteet[Palvelupiste.KAHVILA].getHintojenSumma();
 
 		double asiakasHinnatSumma = 0;
 		for (int i = 0; i < asiakkaidenHinnat.size(); i++) {
@@ -223,14 +213,13 @@ public class OmaMoottori extends Moottori {
 		System.out.println("U: " + kayttoaste);
 		System.out.println("X: " + suoritusteho + " asiakasta/sekunnissa");
 		System.out.println("S: " + palveluAikaKA);
+		System.out.println("W: " + kokonaislapimenoaika);
+		System.out.println("R: " + lapimenoKA);
+		System.out.println("N: " + jononpituusKA);
 		System.out.println("Hinnat Kassa: " + palvelupisteet[Palvelupiste.KASSA].getHintojenSumma());
 		System.out.println("Hinnat Vuokraamo: " + palvelupisteet[Palvelupiste.VUOKRAAMO].getHintojenSumma());
 		System.out.println("Hinnat Kahvila: " + palvelupisteet[Palvelupiste.KAHVILA].getHintojenSumma());
 		System.out.println("Asiakkaiden hinnat: " + asiakkaidenHinnat);
-
-		double hinnatSumma = palvelupisteet[Palvelupiste.KASSA].getHintojenSumma()
-				+ palvelupisteet[Palvelupiste.VUOKRAAMO].getHintojenSumma()
-				+ palvelupisteet[Palvelupiste.KAHVILA].getHintojenSumma();
 
 		dao.setLKkokonaisaika(kokonaisaika);
 		dao.setLKasiakkaaidenMaara(saapuneetAsiakkaat);

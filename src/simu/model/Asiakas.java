@@ -15,7 +15,6 @@ public class Asiakas {
 	private static int i = 1;
 	private static long sum = 0;
 	LinkedList<Integer> reitti = new LinkedList<>();
-	private double maksu;
 	// rinne 1 on suosituin, joten sen mukainen jakauma
 	Normal jakauma = new Normal(3.0, 1);
 
@@ -78,14 +77,6 @@ public class Asiakas {
 
 	public long getSum() {
 		return (long) (poistumisaika - saapumisaika);
-	}
-
-	public double maksa(double raha) {
-		maksu += raha;
-		if (maksu > 100) {
-			maksu -= 20;
-		}
-		return maksu;
 	}
 
 	@Override
