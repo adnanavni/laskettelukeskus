@@ -239,11 +239,26 @@
                      </image>
                   </ImageView>
                   <Label fx:id="aikaLabel" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="126.0" text="Aika: " AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                  <Label fx:id="rinne1Label" layoutX="115.0" layoutY="218.0" prefHeight="26.0" prefWidth="57.0" text="Jono: " />
-                  <Label fx:id="rinne2Label" layoutX="459.0" layoutY="218.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
-                  <Label fx:id="kahvilaLabel" layoutX="103.0" layoutY="474.0" prefHeight="30.0" prefWidth="58.0" text="Jono: " />
-                  <Label fx:id="vuokraamoLabel" layoutX="461.0" layoutY="475.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
-                  <Label fx:id="kassaLabel" layoutX="278.0" layoutY="624.0" prefHeight="26.0" prefWidth="58.0" text="Jono: " />
+                  <Label fx:id="rinne1Label" layoutX="114.0" layoutY="215.0" prefHeight="32.0" prefWidth="64.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font></Label>
+                  <Label fx:id="rinne2Label" layoutX="459.0" layoutY="215.0" prefHeight="26.0" prefWidth="58.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font></Label>
+                  <Label fx:id="kahvilaLabel" layoutX="98.0" layoutY="487.0" prefHeight="30.0" prefWidth="58.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font></Label>
+                  <Label fx:id="vuokraamoLabel" layoutX="459.0" layoutY="477.0" prefHeight="26.0" prefWidth="58.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font></Label>
+                  <Label fx:id="kassaLabel" layoutX="278.0" layoutY="624.0" prefHeight="26.0" prefWidth="58.0" text="0">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font></Label>
                   <Label layoutX="99.0" layoutY="39.0" text="Rinne 1">
                      <font>
                         <Font size="24.0" />
