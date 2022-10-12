@@ -94,13 +94,15 @@ public class TulosRuutuKontrolleri {
 
 	Integer ID;
 
+	String ppID;
+
 	private IDAO dao = new DAO();
 
 	DecimalFormat df = new DecimalFormat("###.###");
 
 	public void initialize() {
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Kassa", "Vuokraamo", "Kahvila",
-				"Rinne 1", "Rinne2");
+				"Rinne1", "Rinne2");
 		ppChoiceBox.setItems(availableChoices);
 
 		ObservableList<Integer> IDt = FXCollections.observableArrayList(dao.IDpituus());
@@ -117,7 +119,7 @@ public class TulosRuutuKontrolleri {
 		asiakkaidenMaara.setText(df.format(dao.haeLKData(ID).get(2)));
 		poistuneetAsiakkaat.setText(df.format(dao.haeLKData(ID).get(3)));
 		lapimenoAikaKA.setText(df.format(dao.haeLKData(ID).get(4)));
-		suoritusTeho.setText(df.format(dao.haeLKData(ID).get(5)));
+		suoritusTeho.setText(df.format(dao.haeLKData(ID).get(5) * 1000));
 
 		// Asiakas taulukon tulokset
 		rahaaKaytettyKA.setText(df.format(dao.haeAData(ID).get(0)));
@@ -136,6 +138,19 @@ public class TulosRuutuKontrolleri {
 		rinne1PalveluajanKA.setText(df.format(dao.haeSyotteet(ID).get(8)));
 		rinne2PalveluajanKA.setText(df.format(dao.haeSyotteet(ID).get(9)));
 
+		palvelupisteData();
+
+	}
+
+	public void palvelupisteData() {
+		ppID = ppChoiceBox.getSelectionModel().getSelectedItem();
+		ID = simulointiChoiceBox.getSelectionModel().getSelectedItem();
+
+		ppTulot.setText(df.format(dao.haePPData(ID, ppID).get(0)));
+		palvelunKayttomaara.setText(df.format(dao.haePPData(ID, ppID).get(1)));
+		aktiiviAika.setText(df.format(dao.haePPData(ID, ppID).get(2)));
+		palveluAikaKA.setText(df.format(dao.haePPData(ID, ppID).get(3)));
+		kayttoAste.setText(df.format(dao.haePPData(ID, ppID).get(4)));
 	}
 
 	@FXML
@@ -171,5 +186,10 @@ public class TulosRuutuKontrolleri {
 		kahvilaOstostenKA.setText("0");
 		rinne1PalveluajanKA.setText("0");
 		rinne2PalveluajanKA.setText("0");
+		ppTulot.setText("0");
+		palvelunKayttomaara.setText("0");
+		aktiiviAika.setText("0");
+		palveluAikaKA.setText("0");
+		kayttoAste.setText("0");
 	}
 }

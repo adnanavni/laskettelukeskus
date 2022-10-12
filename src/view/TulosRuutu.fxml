@@ -176,7 +176,7 @@
                   <Label fx:id="aktiiviAika" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label fx:id="palveluAikaKA" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label fx:id="kayttoAste" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <ComboBox fx:id="ppChoiceBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="ppChoiceBox" onAction="#palvelupisteData" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <ButtonBar layoutX="780.0" layoutY="14.0" prefHeight="40.0" prefWidth="206.0">

@@ -250,7 +250,9 @@ public class DAO implements IDAO {
 	}
 
 	public ArrayList<Double> haePPData(int simuloinninID, String nimi) {
+
 		ArrayList<Double> PPtaulu = new ArrayList<>();
+
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from " + nimi + " where id=?")) {
 			st.setInt(1, simuloinninID);
 			ResultSet rs = st.executeQuery();
