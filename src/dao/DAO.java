@@ -43,10 +43,6 @@ public class DAO implements IDAO {
 	private static double saapumisvali, kassaPalveluAjanKA, lipunHinta, vuokraamoPalveluAjanKA, vuokraamoOstostenKA,
 			kahvilaPalveluAjanKA, kahvilaOstostenKA, rinne1PalveluAjanKA, rinne2PalveluAjanKA;
 
-	private ArrayList<Double> asiakasTaulu = new ArrayList<>();
-	private ArrayList<Double> PPtaulu = new ArrayList<>();
-	private ArrayList<Integer> IDpituus = new ArrayList<>();
-
 	public DAO() {
 		try {
 			myCon = DriverManager.getConnection(
@@ -239,24 +235,12 @@ public class DAO implements IDAO {
 			st.setInt(1, simuloinninID);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				if (!(LKtaulu.contains(rs.getDouble("kokonaisAika")))) {
-					LKtaulu.add(rs.getDouble("kokonaisAika"));
-				}
-				if (!(LKtaulu.contains(rs.getDouble("tulot")))) {
-					LKtaulu.add(rs.getDouble("tulot"));
-				}
-				if (!(LKtaulu.contains(rs.getDouble("asiakkaidenMaara")))) {
-					LKtaulu.add(rs.getDouble("asiakkaidenMaara"));
-				}
-				if (!(LKtaulu.contains(rs.getDouble("poistuneetAsiakkaat")))) {
-					LKtaulu.add(rs.getDouble("PoistuneetAsiakkaat"));
-				}
-				if (!(LKtaulu.contains(rs.getDouble("lapimenoaikaAVG")))) {
-					LKtaulu.add(rs.getDouble("lapimenoaikaAVG"));
-				}
-				if (!(LKtaulu.contains(rs.getDouble("suoritusTeho")))) {
-					LKtaulu.add(rs.getDouble("suoritusTeho"));
-				}
+				LKtaulu.add(rs.getDouble("kokonaisAika"));
+				LKtaulu.add(rs.getDouble("tulot"));
+				LKtaulu.add(rs.getDouble("asiakkaidenMaara"));
+				LKtaulu.add(rs.getDouble("PoistuneetAsiakkaat"));
+				LKtaulu.add(rs.getDouble("lapimenoaikaAVG"));
+				LKtaulu.add(rs.getDouble("suoritusTeho"));
 			}
 
 		} catch (SQLException e) {
@@ -271,32 +255,23 @@ public class DAO implements IDAO {
 			st.setInt(1, simuloinninID);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-
-				if (!(PPtaulu.contains(rs.getDouble("tulot")))) {
-					PPtaulu.add(rs.getDouble("tulot"));
-				}
-				if (!(PPtaulu.contains(rs.getDouble("palvellutAsiakkaat")))) {
-					PPtaulu.add(rs.getDouble("palvellutAsiakkaat"));
-				}
-				if (!(PPtaulu.contains(rs.getDouble("aktiiviAika")))) {
-					PPtaulu.add(rs.getDouble("aktiiviAika"));
-				}
-				if (!(PPtaulu.contains(rs.getDouble("palveluAikaAVG")))) {
-					PPtaulu.add(rs.getDouble("palveluAikaAVG"));
-				}
-				if (!(PPtaulu.contains(rs.getDouble("kayttoAste")))) {
-					PPtaulu.add(rs.getDouble("kayttoAste"));
-				}
-
+				PPtaulu.add(rs.getDouble("tulot"));
+				PPtaulu.add(rs.getDouble("palvellutAsiakkaat"));
+				PPtaulu.add(rs.getDouble("aktiiviAika"));
+				PPtaulu.add(rs.getDouble("palveluAikaAVG"));
+				PPtaulu.add(rs.getDouble("kayttoAste"));
 			}
 
-		} catch (SQLException e) {
+		} catch (
+
+		SQLException e) {
 			e.printStackTrace();
 		}
 		return PPtaulu;
 	}
 
 	public ArrayList<Integer> IDpituus() {
+		ArrayList<Integer> IDpituus = new ArrayList<>();
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from laskettelukeskus")) {
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
@@ -310,25 +285,43 @@ public class DAO implements IDAO {
 	}
 
 	public ArrayList<Double> haeAData(int simuloinninID) {
+		ArrayList<Double> asiakasTaulu = new ArrayList<>();
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from asiakas where id=?")) {
 			st.setInt(1, simuloinninID);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
-				if (!(asiakasTaulu.contains(rs.getDouble("rahaaKaytetty")))) {
-					asiakasTaulu.add(rs.getDouble("rahaaKaytetty"));
-				}
-				if (!(asiakasTaulu.contains(rs.getDouble("vietettyAika")))) {
-					asiakasTaulu.add(rs.getDouble("vietettyAika"));
-				}
-				if (!(asiakasTaulu.contains(rs.getDouble("palvelupisteidenMaara")))) {
-					asiakasTaulu.add(rs.getDouble("palvelupisteidenMaara"));
-				}
+				asiakasTaulu.add(rs.getDouble("rahaaKaytetty"));
+				asiakasTaulu.add(rs.getDouble("vietettyAika"));
+				asiakasTaulu.add(rs.getDouble("palvelupisteidenMaara"));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return asiakasTaulu;
+	}
+
+	public ArrayList<Double> haeSyotteet(int simuloinninID) {
+		ArrayList<Double> syotteetTaulu = new ArrayList<>();
+		try (PreparedStatement st = myCon.prepareStatement("SELECT * from syotteet where id=?")) {
+			st.setInt(1, simuloinninID);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				syotteetTaulu.add(rs.getDouble("simulaationKesto"));
+				syotteetTaulu.add(rs.getDouble("saapumisvali"));
+				syotteetTaulu.add(rs.getDouble("kassaPalveluAjanKA"));
+				syotteetTaulu.add(rs.getDouble("lipunHinta"));
+				syotteetTaulu.add(rs.getDouble("vuokraamoPalveluAjanKA"));
+				syotteetTaulu.add(rs.getDouble("vuokraamoOstostenKA"));
+				syotteetTaulu.add(rs.getDouble("kahvilaPalveluAjanKA"));
+				syotteetTaulu.add(rs.getDouble("kahvilaOstostenKA"));
+				syotteetTaulu.add(rs.getDouble("rinne1PalveluAjanKA"));
+				syotteetTaulu.add(rs.getDouble("rinne2PalveluAjanKA"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return syotteetTaulu;
 	}
 
 	public void setSaapumisvali(double saapumisvali) {

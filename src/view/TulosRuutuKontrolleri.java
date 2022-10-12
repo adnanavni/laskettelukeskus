@@ -1,5 +1,7 @@
 package view;
 
+import java.text.DecimalFormat;
+
 import dao.DAO;
 import dao.IDAO;
 import javafx.collections.FXCollections;
@@ -94,6 +96,8 @@ public class TulosRuutuKontrolleri {
 
 	private IDAO dao = new DAO();
 
+	DecimalFormat df = new DecimalFormat("###.###");
+
 	public void initialize() {
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Kassa", "Vuokraamo", "Kahvila",
 				"Rinne 1", "Rinne2");
@@ -107,16 +111,65 @@ public class TulosRuutuKontrolleri {
 	public void asetaData() {
 		ID = simulointiChoiceBox.getSelectionModel().getSelectedItem();
 
-		simulaationKesto.setText(Double.toString(dao.haeLKData(ID).get(0)));
-		kokonaisTulot.setText(Double.toString(dao.haeLKData(ID).get(1)));
-		asiakkaidenMaara.setText(Double.toString(dao.haeLKData(ID).get(2)));
-		poistuneetAsiakkaat.setText(Double.toString(dao.haeLKData(ID).get(3)));
-		lapimenoAikaKA.setText(Double.toString(dao.haeLKData(ID).get(4)));
-		suoritusTeho.setText(Double.toString(dao.haeLKData(ID).get(5)));
+		// Laskettelukeskus taulukon tulokset
+		simulaationKesto.setText(df.format(dao.haeLKData(ID).get(0)));
+		kokonaisTulot.setText(df.format(dao.haeLKData(ID).get(1)));
+		asiakkaidenMaara.setText(df.format(dao.haeLKData(ID).get(2)));
+		poistuneetAsiakkaat.setText(df.format(dao.haeLKData(ID).get(3)));
+		lapimenoAikaKA.setText(df.format(dao.haeLKData(ID).get(4)));
+		suoritusTeho.setText(df.format(dao.haeLKData(ID).get(5)));
+
+		// Asiakas taulukon tulokset
+		rahaaKaytettyKA.setText(df.format(dao.haeAData(ID).get(0)));
+		vietettyAikaKA.setText(df.format(dao.haeAData(ID).get(1)));
+		kaytyjenPisteidenMaaraKA.setText(df.format(dao.haeAData(ID).get(2)));
+
+		// Syötteet taulukon tulokset
+		simulaationKesto.setText(df.format(dao.haeSyotteet(ID).get(0)));
+		aikaaAsiakkaidenValissa.setText(df.format(dao.haeSyotteet(ID).get(1)));
+		kassaPalveluajanKA.setText(df.format(dao.haeSyotteet(ID).get(2)));
+		lipunHinta.setText(df.format(dao.haeSyotteet(ID).get(3)));
+		vuokraakoPalveluajanKA.setText(df.format(dao.haeSyotteet(ID).get(4)));
+		vuokraamoOstostenKA.setText(df.format(dao.haeSyotteet(ID).get(5)));
+		kahvilaPalveluajanKA.setText(df.format(dao.haeSyotteet(ID).get(6)));
+		kahvilaOstostenKA.setText(df.format(dao.haeSyotteet(ID).get(7)));
+		rinne1PalveluajanKA.setText(df.format(dao.haeSyotteet(ID).get(8)));
+		rinne2PalveluajanKA.setText(df.format(dao.haeSyotteet(ID).get(9)));
+
 	}
 
 	@FXML
 	public void tyhjennaTietokanta(ActionEvent event) {
 		dao.tyhjennaTietokanta();
+		try {
+			ObservableList<Integer> IDt = FXCollections.observableArrayList(dao.IDpituus());
+			simulointiChoiceBox.setItems(IDt);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		tyhjennaTulokset();
+	}
+
+	public void tyhjennaTulokset() {
+
+		simulaationKesto.setText("0");
+		kokonaisTulot.setText("0");
+		asiakkaidenMaara.setText("0");
+		poistuneetAsiakkaat.setText("0");
+		lapimenoAikaKA.setText("0");
+		suoritusTeho.setText("0");
+		rahaaKaytettyKA.setText("0");
+		vietettyAikaKA.setText("0");
+		kaytyjenPisteidenMaaraKA.setText("0");
+		simulaationKesto.setText("0");
+		aikaaAsiakkaidenValissa.setText("0");
+		kassaPalveluajanKA.setText("0");
+		lipunHinta.setText("0");
+		vuokraakoPalveluajanKA.setText("0");
+		vuokraamoOstostenKA.setText("0");
+		kahvilaPalveluajanKA.setText("0");
+		kahvilaOstostenKA.setText("0");
+		rinne1PalveluajanKA.setText("0");
+		rinne2PalveluajanKA.setText("0");
 	}
 }
