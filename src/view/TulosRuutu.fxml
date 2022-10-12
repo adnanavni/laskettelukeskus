@@ -182,7 +182,7 @@
             </GridPane>
             <ButtonBar layoutX="780.0" layoutY="14.0" prefHeight="40.0" prefWidth="206.0">
               <buttons>
-                <Button fx:id="tyhjennysNappi" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="214.0" text="Tyhjennä tietokanta" />
+                <Button fx:id="tyhjennysNappi" alignment="CENTER" mnemonicParsing="false" onAction="#tyhjennaTietokanta" prefHeight="25.0" prefWidth="214.0" text="Tyhjennä tietokanta" />
               </buttons>
             </ButtonBar>
             <GridPane layoutX="14.0" layoutY="412.0" prefHeight="167.0" prefWidth="939.0">

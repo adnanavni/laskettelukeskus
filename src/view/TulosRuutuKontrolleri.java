@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 
+import dao.DAO;
 import dao.IDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,6 +98,8 @@ public class TulosRuutuKontrolleri {
 	
 	@FXML
 	private Button tyhjennysNappi;
+
+	private IDAO dao = new DAO();
 	
 
 	public void initialize() {
@@ -106,6 +109,6 @@ public class TulosRuutuKontrolleri {
 
 	@FXML
 	public void tyhjennaTietokanta(ActionEvent event) {
-		
+		dao.tyhjennaTietokanta();
 	}
 }

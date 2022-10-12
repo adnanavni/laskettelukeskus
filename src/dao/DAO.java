@@ -3,11 +3,18 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Optional;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class DAO implements IDAO {
 
-	private static String IPOSOITE = "localhost";
+	private static String IPOSOITE = "localhost:3307";
 	private static String DATABASE = "laskettelukeskus";
 	private static String KAYTTAJA = "olso";
 	private static String SALASANA = "olso";
@@ -35,6 +42,10 @@ public class DAO implements IDAO {
 
 	private static double saapumisvali, kassaPalveluAjanKA, lipunHinta, vuokraamoPalveluAjanKA, vuokraamoOstostenKA,
 			kahvilaPalveluAjanKA, kahvilaOstostenKA, rinne1PalveluAjanKA, rinne2PalveluAjanKA;
+
+	private ArrayList<Double> asiakasTaulu = new ArrayList<>();
+	private ArrayList<Double> LKtaulu = new ArrayList<>();
+	private ArrayList<Double> PPtaulu = new ArrayList<>();
 
 	public DAO() {
 		try {
@@ -171,6 +182,138 @@ public class DAO implements IDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void tyhjennaTietokanta() {
+		String query = "TRUNCATE TABLE laskettelukeskus;";
+		String query1 = "TRUNCATE TABLE asiakas;";
+		String query2 = "TRUNCATE TABLE kahvila;";
+		String query3 = "TRUNCATE TABLE vuokraamo;";
+		String query4 = "TRUNCATE TABLE rinne1;";
+		String query5 = "TRUNCATE TABLE rinne2;";
+		String query6 = "TRUNCATE TABLE syotteet;";
+		String query7 = "TRUNCATE TABLE kassa;";
+
+		try {
+			Alert onnistui = new Alert(AlertType.CONFIRMATION);
+			onnistui.setContentText("Haluatko tyhjentää tietokannan?");
+			onnistui.setTitle("Vahvistus");
+			ButtonType joo = new ButtonType("Kyllä");
+			ButtonType ei = new ButtonType("Ei");
+			onnistui.getButtonTypes().setAll(joo, ei);
+
+			Optional<ButtonType> result = onnistui.showAndWait();
+			if (result.get() == joo) {
+
+				PreparedStatement st = myCon.prepareStatement(query);
+				PreparedStatement st1 = myCon.prepareStatement(query1);
+				PreparedStatement st2 = myCon.prepareStatement(query2);
+				PreparedStatement st3 = myCon.prepareStatement(query3);
+				PreparedStatement st4 = myCon.prepareStatement(query4);
+				PreparedStatement st5 = myCon.prepareStatement(query5);
+				PreparedStatement st6 = myCon.prepareStatement(query6);
+				PreparedStatement st7 = myCon.prepareStatement(query7);
+
+				st.executeUpdate();
+				st1.executeUpdate();
+				st2.executeUpdate();
+				st3.executeUpdate();
+				st4.executeUpdate();
+				st5.executeUpdate();
+				st6.executeUpdate();
+				st7.executeUpdate();
+
+			} else if (result.get() == ei) {
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<Double> haeLKData(int simuloinninID) {
+		try (PreparedStatement st = myCon.prepareStatement("SELECT * from laskettelukeskus where id=?")) {
+			st.setInt(1, simuloinninID);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				if (!(LKtaulu.contains(rs.getDouble("kokonaisAika")))) {
+					LKtaulu.add(rs.getDouble("kokonaisAika"));
+				}
+				if (!(LKtaulu.contains(rs.getDouble("tulot")))) {
+					LKtaulu.add(rs.getDouble("tulot"));
+				}
+				if (!(LKtaulu.contains(rs.getDouble("asiakkaidenMaara")))) {
+					LKtaulu.add(rs.getDouble("asiakkaidenMaara"));
+				}
+				if (!(LKtaulu.contains(rs.getDouble("poistuneetAsiakkaat")))) {
+					LKtaulu.add(rs.getDouble("PoistuneetAsiakkaat"));
+				}
+				if (!(LKtaulu.contains(rs.getDouble("lapimenoaikaAVG")))) {
+					LKtaulu.add(rs.getDouble("lapimenoaikaAVG"));
+				}
+				if (!(LKtaulu.contains(rs.getDouble("suoritusTeho")))) {
+					LKtaulu.add(rs.getDouble("suoritusTeho"));
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return LKtaulu;
+	}
+
+	public ArrayList<Double> haePPData(int simuloinninID, String palvelupisteID) {
+		try (PreparedStatement st = myCon.prepareStatement("SELECT * from " + palvelupisteID + " where id=?")) {
+			st.setInt(1, simuloinninID);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+
+				if (!(PPtaulu.contains(rs.getDouble("tulot")))) {
+					PPtaulu.add(rs.getDouble("tulot"));
+				}
+				if (!(PPtaulu.contains(rs.getDouble("palvellutAsiakkaat")))) {
+					PPtaulu.add(rs.getDouble("palvellutAsiakkaat"));
+				}
+				if (!(PPtaulu.contains(rs.getDouble("aktiiviAika")))) {
+					PPtaulu.add(rs.getDouble("aktiiviAika"));
+				}
+				if (!(PPtaulu.contains(rs.getDouble("palveluAikaAVG")))) {
+					PPtaulu.add(rs.getDouble("palveluAikaAVG"));
+				}
+				if (!(PPtaulu.contains(rs.getDouble("kayttoAste")))) {
+					PPtaulu.add(rs.getDouble("kayttoAste"));
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return PPtaulu;
+	}
+
+	public ArrayList<Double> haeAData(int simuloinninID) {
+		try (PreparedStatement st = myCon.prepareStatement("SELECT * from asiakas where id=?")) {
+			st.setInt(1, simuloinninID);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				if (!(asiakasTaulu.contains(rs.getDouble("rahaaKaytetty")))) {
+					asiakasTaulu.add(rs.getDouble("rahaaKaytetty"));
+				}
+				if (!(asiakasTaulu.contains(rs.getDouble("vietettyAika")))) {
+					asiakasTaulu.add(rs.getDouble("vietettyAika"));
+				}
+				if (!(asiakasTaulu.contains(rs.getDouble("palvelupisteidenMaara")))) {
+					asiakasTaulu.add(rs.getDouble("palvelupisteidenMaara"));
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return asiakasTaulu;
 	}
 
 	public void setSaapumisvali(double saapumisvali) {
