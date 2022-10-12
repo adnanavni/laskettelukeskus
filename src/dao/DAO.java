@@ -14,12 +14,30 @@ import javafx.scene.control.ButtonType;
 
 public class DAO implements IDAO {
 
-	private static String IPOSOITE = "localhost:3307";
+	private static String IPOSOITE = "localhost";
 	private static String DATABASE = "laskettelukeskus";
 	private static String KAYTTAJA = "olso";
 	private static String SALASANA = "olso";
 
 	private Connection myCon;
+
+	public ArrayList<Double> getLKtaulu() {
+		return LKtaulu;
+	}
+
+	private ArrayList<Integer> IDpituus = new ArrayList<>();
+
+	public void setLKtaulu(ArrayList<Double> lKtaulu) {
+		LKtaulu = lKtaulu;
+	}
+
+	public ArrayList<Double> getPPtaulu() {
+		return PPtaulu;
+	}
+
+	public void setPPtaulu(ArrayList<Double> pPtaulu) {
+		PPtaulu = pPtaulu;
+	}
 
 	private static double LKkokonaisaika, LKtulot, LKasiakkaaidenMaara, LKPoistuneetAsiakkaat, LKlapimenoaikaAVG,
 			LKsuoritusteho;
@@ -292,6 +310,19 @@ public class DAO implements IDAO {
 			e.printStackTrace();
 		}
 		return PPtaulu;
+	}
+
+	public ArrayList<Integer> IDpituus() {
+		try (PreparedStatement st = myCon.prepareStatement("SELECT * from laskettelukeskus")) {
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				IDpituus.add(rs.getInt(1));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return IDpituus;
 	}
 
 	public ArrayList<Double> haeAData(int simuloinninID) {

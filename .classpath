@@ -8,6 +8,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAFX LIBRARI"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MariaDBDriver"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/mariadb_driver"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/SQL"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="output" path="bin"/>
