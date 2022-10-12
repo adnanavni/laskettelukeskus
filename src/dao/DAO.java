@@ -21,24 +21,6 @@ public class DAO implements IDAO {
 
 	private Connection myCon;
 
-	public ArrayList<Double> getLKtaulu() {
-		return LKtaulu;
-	}
-
-	private ArrayList<Integer> IDpituus = new ArrayList<>();
-
-	public void setLKtaulu(ArrayList<Double> lKtaulu) {
-		LKtaulu = lKtaulu;
-	}
-
-	public ArrayList<Double> getPPtaulu() {
-		return PPtaulu;
-	}
-
-	public void setPPtaulu(ArrayList<Double> pPtaulu) {
-		PPtaulu = pPtaulu;
-	}
-
 	private static double LKkokonaisaika, LKtulot, LKasiakkaaidenMaara, LKPoistuneetAsiakkaat, LKlapimenoaikaAVG,
 			LKsuoritusteho;
 
@@ -62,8 +44,8 @@ public class DAO implements IDAO {
 			kahvilaPalveluAjanKA, kahvilaOstostenKA, rinne1PalveluAjanKA, rinne2PalveluAjanKA;
 
 	private ArrayList<Double> asiakasTaulu = new ArrayList<>();
-	private ArrayList<Double> LKtaulu = new ArrayList<>();
 	private ArrayList<Double> PPtaulu = new ArrayList<>();
+	private ArrayList<Integer> IDpituus = new ArrayList<>();
 
 	public DAO() {
 		try {
@@ -252,6 +234,7 @@ public class DAO implements IDAO {
 	}
 
 	public ArrayList<Double> haeLKData(int simuloinninID) {
+		ArrayList<Double> LKtaulu = new ArrayList<>();
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from laskettelukeskus where id=?")) {
 			st.setInt(1, simuloinninID);
 			ResultSet rs = st.executeQuery();
@@ -282,8 +265,9 @@ public class DAO implements IDAO {
 		return LKtaulu;
 	}
 
-	public ArrayList<Double> haePPData(int simuloinninID, String palvelupisteID) {
-		try (PreparedStatement st = myCon.prepareStatement("SELECT * from " + palvelupisteID + " where id=?")) {
+	public ArrayList<Double> haePPData(int simuloinninID, String nimi) {
+		ArrayList<Double> PPtaulu = new ArrayList<>();
+		try (PreparedStatement st = myCon.prepareStatement("SELECT * from " + nimi + " where id=?")) {
 			st.setInt(1, simuloinninID);
 			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
@@ -538,4 +522,5 @@ public class DAO implements IDAO {
 	public void setLKlapimenoaikaAVG(double lKlapimenoaikaAVG) {
 		LKlapimenoaikaAVG = lKlapimenoaikaAVG;
 	}
+
 }

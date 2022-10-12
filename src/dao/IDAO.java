@@ -7,10 +7,13 @@ public interface IDAO {
 	public void tallennaLKData();
 
 	public void tyhjennaTietokanta();
-	
-	public ArrayList<Double> getLKtaulu();
-	
+
 	public ArrayList<Integer> IDpituus();
-	
+
+	public ArrayList<Double> haeLKData(int simuloinninID);
+
+	public ArrayList<Double> haeAData(int simuloinninID);
+
+	public ArrayList<Double> haePPData(int simuloinninID, String nimi);
 
 }
