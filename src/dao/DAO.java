@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class DAO implements IDAO {
 
-	private static String IPOSOITE = "localhost:3307";
+	private static String IPOSOITE = "localhost";
 	private static String DATABASE = "laskettelukeskus";
 	private static String KAYTTAJA = "olso";
 	private static String SALASANA = "olso";
