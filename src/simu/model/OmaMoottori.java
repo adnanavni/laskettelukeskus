@@ -67,13 +67,13 @@ public class OmaMoottori extends Moottori {
 		Kello.getInstance().setAika(0);
 		saapumisprosessi.setGeneraattori(new Negexp(saapumisaikavali));
 
-		palvelupisteet[Palvelupiste.KASSA].setGenerator(new Normal(kassaPalveluaika, 5));
+		palvelupisteet[Palvelupiste.KASSA].setGenerator(new Normal(kassaPalveluaika, 1));
 		palvelupisteet[Palvelupiste.KASSA].setHinta(new Uniform(kassaHinta - 1, kassaHinta + 1));
 
-		palvelupisteet[Palvelupiste.VUOKRAAMO].setGenerator(new Normal(vuokraamoAika, 10));
+		palvelupisteet[Palvelupiste.VUOKRAAMO].setGenerator(new Normal(vuokraamoAika, 1));
 		palvelupisteet[Palvelupiste.VUOKRAAMO].setHinta(new Uniform(vuokraamoHinta - 10, vuokraamoHinta + 10));
 
-		palvelupisteet[Palvelupiste.KAHVILA].setGenerator(new Normal(kahvilaAika, 10));
+		palvelupisteet[Palvelupiste.KAHVILA].setGenerator(new Normal(kahvilaAika, 1));
 		palvelupisteet[Palvelupiste.KAHVILA].setHinta(new Uniform(kahvilaHinta - 10, kahvilaHinta + 10));
 
 		palvelupisteet[Palvelupiste.RINNE1].setGenerator(new Uniform(ekaRinneAika, ekaRinneAika + 1));
