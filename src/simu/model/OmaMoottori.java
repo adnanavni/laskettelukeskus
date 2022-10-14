@@ -22,21 +22,18 @@ public class OmaMoottori extends Moottori {
 	private HashMap<Integer, Double> palveluajat = new HashMap<>();
 	private HashMap<Integer, Double> kayttoaste = new HashMap<>();
 	private HashMap<Integer, Double> palveluAikaKA = new HashMap<>();
+	private HashMap<Integer, Integer> asiakkaidenPp = new HashMap<>();
 	private ArrayList<Double> asiakkaidenHinnat = new ArrayList<>();
 	private ArrayList<Integer> reitinPituudet = new ArrayList<>();
 
 	private int saapuneetAsiakkaat;
 	private int palvellutAsiakkaat;
 
-	private double kokonaisaika, suoritusteho, saapumisaikavali, jononpituusKA, reitinPituudetKA, lapimenoKA,
-			kassaPalveluaika, kassaHinta, vuokraamoAika, vuokraamoHinta, kahvilaAika, kahvilaHinta, ekaRinneAika,
-			tokaRinneAika, kokonaislapimenoaika, asiakkaidenHinnatKA, asiakkaidenVietettyAika;
+	private double kokonaisaika, kokonaislapimenoaika, suoritusteho, jononpituusKA, reitinPituudetKA, lapimenoKA,
+			asiakkaidenHinnatKA, asiakkaidenVietettyAika;
 
-	private int kassaAsiakasCounter = 0;
-	private int vuokraamoAsiakasCounter = 0;
-	private int kahvilaAsiakasCounter = 0;
-	private int rinne1AsiakasCounter = 0;
-	private int rinne2AsiakasCounter = 0;
+	private double saapumisaikavali, kassaPalveluaika, kassaHinta, vuokraamoAika, vuokraamoHinta, kahvilaAika,
+			kahvilaHinta, ekaRinneAika, tokaRinneAika;
 
 	private DAO dao = new DAO();
 
@@ -91,62 +88,79 @@ public class OmaMoottori extends Moottori {
 
 		case ARR1:
 			palvelupisteet[Palvelupiste.KASSA].lisaaJonoon(new Asiakas(reitinPituus));
+
 			reitinPituudet.add(reitinPituus);
 			saapuneetAsiakkaat++;
+
 			saapumisprosessi.generoiSeuraava();
 			break;
 		case DEP1:
 			a = palvelupisteet[Palvelupiste.KASSA].otaJonosta();
-			kassaAsiakasCounter++;
 			kontrolleri.naytaJono(kontrolleri.getKassaLabel(), palvelupisteet[Palvelupiste.KASSA].jononPituus());
 
+			int n = 0;
+			if (asiakkaidenPp.get(0) != null) {
+				n = asiakkaidenPp.get(0);
+			}
+			asiakkaidenPp.put(0, n + 1);
 			palveluajat.put(Palvelupiste.KASSA, palvelupisteet[Palvelupiste.KASSA].getPalveluaikaSumma());
 			asiakkaidenHinnat.add(palvelupisteet[Palvelupiste.KASSA].getEsimHinta());
 
-			System.out.println(a.getId() + " KASSA " + a);
 			palvelupisteet[Palvelupiste.VUOKRAAMO].lisaaJonoon(a);
 			break;
 		case DEP2:
 			a = palvelupisteet[Palvelupiste.VUOKRAAMO].otaJonosta();
-			vuokraamoAsiakasCounter++;
 			kontrolleri.naytaJono(kontrolleri.getVuokraamoLabel(),
 					palvelupisteet[Palvelupiste.VUOKRAAMO].jononPituus());
 
+			n = 0;
+			if (asiakkaidenPp.get(1) != null) {
+				n = asiakkaidenPp.get(1);
+			}
+			asiakkaidenPp.put(1, n + 1);
 			palveluajat.put(Palvelupiste.VUOKRAAMO, palvelupisteet[Palvelupiste.VUOKRAAMO].getPalveluaikaSumma());
 			asiakkaidenHinnat.add(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta());
 
-			System.out.println(a.getId() + " VUOKRAAMO " + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
-
 			break;
 		case DEP3:
 			a = palvelupisteet[Palvelupiste.KAHVILA].otaJonosta();
-			kahvilaAsiakasCounter++;
 			kontrolleri.naytaJono(kontrolleri.getKahvilaLabel(), palvelupisteet[Palvelupiste.KAHVILA].jononPituus());
 
+			n = 0;
+			if (asiakkaidenPp.get(2) != null) {
+				n = asiakkaidenPp.get(2);
+			}
+			asiakkaidenPp.put(2, n + 1);
 			palveluajat.put(Palvelupiste.KAHVILA, palvelupisteet[Palvelupiste.KAHVILA].getPalveluaikaSumma());
 			asiakkaidenHinnat.add(palvelupisteet[Palvelupiste.VUOKRAAMO].getEsimHinta());
 
-			System.out.println(a.getId() + " KAHVILA " + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP4:
 			a = palvelupisteet[Palvelupiste.RINNE1].otaJonosta();
-			rinne1AsiakasCounter++;
 			kontrolleri.naytaJono(kontrolleri.getRinne1Label(), palvelupisteet[Palvelupiste.RINNE1].jononPituus());
 
+			n = 0;
+			if (asiakkaidenPp.get(3) != null) {
+				n = asiakkaidenPp.get(3);
+			}
+			asiakkaidenPp.put(3, n + 1);
 			palveluajat.put(Palvelupiste.RINNE1, palvelupisteet[Palvelupiste.RINNE1].getPalveluaikaSumma());
 
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP5:
 			a = palvelupisteet[Palvelupiste.RINNE2].otaJonosta();
-			rinne2AsiakasCounter++;
 			kontrolleri.naytaJono(kontrolleri.getRinne2Label(), palvelupisteet[Palvelupiste.RINNE2].jononPituus());
 
+			n = 0;
+			if (asiakkaidenPp.get(4) != null) {
+				n = asiakkaidenPp.get(4);
+			}
+			asiakkaidenPp.put(4, n + 1);
 			palveluajat.put(Palvelupiste.RINNE2, palvelupisteet[Palvelupiste.RINNE2].getPalveluaikaSumma());
 
-			System.out.println(a.getId() + " RINNE 2 " + a);
 			palvelupisteet[a.seuraava()].lisaaJonoon(a);
 			break;
 		case DEP6:
@@ -155,13 +169,9 @@ public class OmaMoottori extends Moottori {
 			palveluajat.put(Palvelupiste.VUOKRAAMOEXIT,
 					palvelupisteet[Palvelupiste.VUOKRAAMOEXIT].getPalveluaikaSumma());
 
-			System.out.println(a.getId() + " LOPPU " + a);
-
 			palvellutAsiakkaat++;
-
 			a.setPoistumisaika(Kello.getInstance().getAika());
-
-			kokonaislapimenoaika += a.getSum();
+			kokonaislapimenoaika += a.getKokonaisAika();
 			a.raportti();
 			tulokset();
 			break;
@@ -171,7 +181,6 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
 
 		kokonaisaika = Kello.getInstance().getAika();
 
@@ -180,7 +189,7 @@ public class OmaMoottori extends Moottori {
 		}
 
 		for (int i = 0; i < 5; i++) {
-			palveluAikaKA.put(i, (palveluajat.get(i) / palvellutAsiakkaat));
+			palveluAikaKA.put(i, (palveluajat.get(i) / asiakkaidenPp.get(i)));
 		}
 
 		suoritusteho = palvellutAsiakkaat / kokonaisaika;
@@ -207,20 +216,6 @@ public class OmaMoottori extends Moottori {
 
 		asiakkaidenVietettyAika = kokonaislapimenoaika / palvellutAsiakkaat;
 
-		System.out.println("A: " + saapuneetAsiakkaat);
-		System.out.println("B: " + palveluajat);
-		System.out.println("C: " + palvellutAsiakkaat);
-		System.out.println("U: " + kayttoaste);
-		System.out.println("X: " + suoritusteho + " asiakasta/sekunnissa");
-		System.out.println("S: " + palveluAikaKA);
-		System.out.println("W: " + kokonaislapimenoaika);
-		System.out.println("R: " + lapimenoKA);
-		System.out.println("N: " + jononpituusKA);
-		System.out.println("Hinnat Kassa: " + palvelupisteet[Palvelupiste.KASSA].getHintojenSumma());
-		System.out.println("Hinnat Vuokraamo: " + palvelupisteet[Palvelupiste.VUOKRAAMO].getHintojenSumma());
-		System.out.println("Hinnat Kahvila: " + palvelupisteet[Palvelupiste.KAHVILA].getHintojenSumma());
-		System.out.println("Asiakkaiden hinnat: " + asiakkaidenHinnat);
-
 		dao.setLKkokonaisaika(kokonaisaika);
 		dao.setLKasiakkaaidenMaara(saapuneetAsiakkaat);
 		dao.setLKPoistuneetAsiakkaat(palvellutAsiakkaat);
@@ -229,31 +224,31 @@ public class OmaMoottori extends Moottori {
 		dao.setLKsuoritusteho(suoritusteho);
 
 		dao.setPPtulot(palvelupisteet[Palvelupiste.KASSA].getHintojenSumma());
-		dao.setPPpalvellutAsiakkaat(kassaAsiakasCounter);
+		dao.setPPpalvellutAsiakkaat(asiakkaidenPp.get(0));
 		dao.setPPaktiiviAika(palveluajat.get(0));
 		dao.setPPpalveluaikaAVG(palveluAikaKA.get(0));
 		dao.setPPkayttoAste(kayttoaste.get(0));
 
 		dao.setVuokraamoTulot(palvelupisteet[Palvelupiste.VUOKRAAMO].getHintojenSumma());
-		dao.setVuokraamoPalvellutAsiakkaat(vuokraamoAsiakasCounter);
+		dao.setVuokraamoPalvellutAsiakkaat(asiakkaidenPp.get(1));
 		dao.setVuokraamoAktiiviAika(palveluajat.get(1));
 		dao.setVuokraamoPalveluaikaAVG(palveluAikaKA.get(1));
 		dao.setVuokraamoKayttoAste(kayttoaste.get(1));
 
 		dao.setKahvilaTulot(palvelupisteet[Palvelupiste.KAHVILA].getHintojenSumma());
-		dao.setKahvilaPalvellutAsiakkaat(kahvilaAsiakasCounter);
+		dao.setKahvilaPalvellutAsiakkaat(asiakkaidenPp.get(2));
 		dao.setKahvilaAktiiviAika(palveluajat.get(2));
 		dao.setKahvilaPalveluaikaAVG(palveluAikaKA.get(2));
 		dao.setKahvilaKayttoAste(kayttoaste.get(2));
 
 		dao.setRinne1Tulot(palvelupisteet[Palvelupiste.RINNE1].getHintojenSumma());
-		dao.setRinne1PalvellutAsiakkaat(rinne1AsiakasCounter);
+		dao.setRinne1PalvellutAsiakkaat(asiakkaidenPp.get(3));
 		dao.setRinne1AktiiviAika(palveluajat.get(3));
 		dao.setRinne1PalveluaikaAVG(palveluAikaKA.get(3));
 		dao.setRinne1KayttoAste(kayttoaste.get(3));
 
 		dao.setRinne2Tulot(palvelupisteet[Palvelupiste.RINNE2].getHintojenSumma());
-		dao.setRinne2PalvellutAsiakkaat(rinne2AsiakasCounter);
+		dao.setRinne2PalvellutAsiakkaat(asiakkaidenPp.get(4));
 		dao.setRinne2AktiiviAika(palveluajat.get(4));
 		dao.setRinne2PalveluaikaAVG(palveluAikaKA.get(4));
 		dao.setRinne2KayttoAste(kayttoaste.get(4));

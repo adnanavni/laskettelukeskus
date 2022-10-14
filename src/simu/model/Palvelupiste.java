@@ -67,16 +67,16 @@ public class Palvelupiste {
 		return jono.size();
 	}
 
-	public double getPalveluaikaSumma() {
-		return palveluaikaSumma;
-	}
-
 	public boolean onVarattu() {
 		return varattu;
 	}
 
 	public boolean onJonossa() {
 		return jono.size() != 0;
+	}
+
+	public double getPalveluaikaSumma() {
+		return palveluaikaSumma;
 	}
 
 	public double getHintojenSumma() {

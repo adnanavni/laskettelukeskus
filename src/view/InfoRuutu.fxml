@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="backgroundVasen" stylesheets="@EkaRuutuStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="618.0" layoutY="37.0" text="Käyttöohjeet" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="-4.0" layoutY="126.0" text="Simulaattorin avulla voit simuloida laskettelukeskusta." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="125.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="-4.0" layoutY="178.0" text="Voit asettaa simulaattoriin erilaisia asetuksia, kuten hintojen keskiarvoja ja eripalvelupisteiden keskiarvoja." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="185.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutY="215.0" text="Simulaattori käynnistetään simuloi napista ja voit seurata jonoja laskettelukeskuksen visuaaliselta puolelta." textAlignment="CENTER" underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="215.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="10.0" layoutY="314.0" text="Simuloinnin jälkeen voit tarkastella ja vertailla eri simulointikertojen tuloksia. Tuloksiin pääset käsiksi tulokset napin takaa." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="275.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="210.0" fitWidth="210.0" layoutX="1232.0" layoutY="341.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="341.0">
+         <image>
+            <Image url="@../../resources/images/help.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="11.0" layoutY="238.0" text="Simulointi voi nopeuttaa tai hidastaa napeista." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="245.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="164.0" text="Voit simulaattorin avulla tutkia eri palvelupisteiden palveluaikoja, kokonaisaikaa, rahan käyttöä." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="155.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="100.0" layoutY="374.0" text="Tuloksissa voit valita myös tietyn palvelupisteen tiedot tarkisteltaviksi." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="305.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="332.0" text="Voit halutesassi tyhjentää tallennetut tiedot, jolloin tietokanta tyhjennetään" underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="335.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

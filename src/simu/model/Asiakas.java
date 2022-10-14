@@ -75,13 +75,7 @@ public class Asiakas {
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo " + keskiarvo);
 	}
 
-	public long getSum() {
+	public long getKokonaisAika() {
 		return (long) (poistumisaika - saapumisaika);
-	}
-
-	@Override
-	public String toString() {
-		return "Asiakas [saapumisaika=" + saapumisaika + ", poistumisaika=" + poistumisaika + ", id=" + id + ", reitti="
-				+ reitti + "]";
 	}
 }
