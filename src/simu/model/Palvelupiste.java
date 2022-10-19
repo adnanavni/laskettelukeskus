@@ -94,4 +94,12 @@ public class Palvelupiste {
 	public void setHinta(ContinuousGenerator hinta) {
 		this.hinta = hinta;
 	}
+
+	public ContinuousGenerator getGenerator() {
+		return generator;
+	}
+
+	public ContinuousGenerator getHinta() {
+		return hinta;
+	}
 }
