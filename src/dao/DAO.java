@@ -14,7 +14,7 @@ import javafx.scene.control.ButtonType;
 
 public class DAO implements IDAO {
 
-	private static String IPOSOITE = "localhost";
+	private static String IPOSOITE = "localhost:3307";
 	private static String DATABASE = "laskettelukeskus";
 	private static String KAYTTAJA = "olso";
 	private static String SALASANA = "olso";
@@ -516,6 +516,14 @@ public class DAO implements IDAO {
 
 	public void setLKlapimenoaikaAVG(double lKlapimenoaikaAVG) {
 		LKlapimenoaikaAVG = lKlapimenoaikaAVG;
+	}
+
+	public static double getArahaaKaytetty() {
+		return ArahaaKaytetty;
+	}
+
+	public static double getSaapumisvali() {
+		return saapumisvali;
 	}
 
 }
