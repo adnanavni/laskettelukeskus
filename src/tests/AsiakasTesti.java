@@ -8,6 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import simu.model.Asiakas;
 
+/**
+ * Asiakas-oliolle tehtävät testit.
+ * 
+ * @author Adnan Avni
+ * @version 1.0
+ */
 class AsiakasTesti {
 
 	@Test

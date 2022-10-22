@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public interface IDAO {
 
+	// Hyödynnetään kontrollerissa datan hakua varten.
+
 	public void tallennaLKData();
 
 	public void tyhjennaTietokanta();
@@ -15,7 +17,7 @@ public interface IDAO {
 	public ArrayList<Double> haeAData(int simuloinninID);
 
 	public ArrayList<Double> haePPData(int simuloinninID, String nimi);
-	
+
 	public ArrayList<Double> haeSyotteet(int simuloinninID);
 
 }

@@ -12,6 +12,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
+/**
+ * DAO vastaanottaa tai lähettää dataa tietokantaan tai sieltä pois.
+ * 
+ * @author Adnan Avni, Roope Kylli ja Perttu Vaarala
+ * @version 1.0
+ */
 public class DAO implements IDAO {
 
 	private static String IPOSOITE = "localhost";
@@ -43,6 +49,9 @@ public class DAO implements IDAO {
 	private static double saapumisvali, kassaPalveluAjanKA, lipunHinta, vuokraamoPalveluAjanKA, vuokraamoOstostenKA,
 			kahvilaPalveluAjanKA, kahvilaOstostenKA, rinne1PalveluAjanKA, rinne2PalveluAjanKA;
 
+	/**
+	 * DAO konstruktori, jossa luodaan yhteys tietokantaan
+	 */
 	public DAO() {
 		try {
 			myCon = DriverManager.getConnection(
@@ -53,6 +62,13 @@ public class DAO implements IDAO {
 		}
 	}
 
+	/**
+	 * Metodi, jossa voidaan nähdä konsolista mahdolliset SQL errorit.
+	 * 
+	 * @param methodinNimi nimi joka ilmenee vikaviestissä, jotta se on helppo
+	 *                     tunnistaa
+	 * @param e            SQL errori
+	 */
 	private void printSQLExceptions(String methodinNimi, SQLException e) {
 		System.err.println("Metodi: " + methodinNimi);
 		do {
@@ -62,6 +78,9 @@ public class DAO implements IDAO {
 		} while (e.getNextException() != null);
 	}
 
+	/**
+	 * Tallentaa kaikden mahdollisen datan.
+	 */
 	public void tallenna() {
 		tallennaLKData();
 		tallennaPPData();
@@ -69,6 +88,9 @@ public class DAO implements IDAO {
 		tallennaInputData();
 	}
 
+	/**
+	 * Asettaa laskettelukeskus taulukkoon tarvittavat tiedot.
+	 */
 	public void tallennaLKData() {
 		String query = "INSERT INTO laskettelukeskus(kokonaisaika, tulot, asiakkaidenMaara, poistuneetAsiakkaat, lapimenoaikaAVG, suoritusteho)"
 				+ "VALUES(?,?,?,?,?,?)";
@@ -88,6 +110,9 @@ public class DAO implements IDAO {
 		}
 	}
 
+	/**
+	 * Asettaa palvelupisteiden taulukoihin tarvittavat tiedot.
+	 */
 	public void tallennaPPData() {
 
 		String[] lista = { "kassa", "vuokraamo", "kahvila", "rinne1", "rinne2" };
@@ -137,6 +162,9 @@ public class DAO implements IDAO {
 		}
 	}
 
+	/**
+	 * Asettaa asiakas taulukkoon tarvittavat tiedot.
+	 */
 	public void tallennaAData() {
 		String query = "INSERT INTO Asiakas(rahaaKaytetty, vietettyAika, palvelupisteidenMaara)" + "VALUES(?,?,?)";
 		try {
@@ -154,6 +182,9 @@ public class DAO implements IDAO {
 		}
 	}
 
+	/**
+	 * Asettaa input taulukkoon tarvittavat tiedot, eli käyttäjän syöttämät tiedot
+	 */
 	public void tallennaInputData() {
 		String query = "INSERT INTO syotteet (simulaationKesto, saapumisvali, kassaPalveluAjanKA,lipunHinta,vuokraamoPalveluAjanKA,vuokraamoOstostenKA,"
 				+ "kahvilaPalveluAjanKA,kahvilaOstostenKA,rinne1PalveluAjanKA,rinne2PalveluAjanKA)"
@@ -180,6 +211,9 @@ public class DAO implements IDAO {
 		}
 	}
 
+	/**
+	 * Tyhjentää koko tietokannan kaikki taulut.
+	 */
 	public void tyhjennaTietokanta() {
 		String query = "TRUNCATE TABLE laskettelukeskus;";
 		String query1 = "TRUNCATE TABLE asiakas;";
@@ -229,6 +263,11 @@ public class DAO implements IDAO {
 		}
 	}
 
+	/**
+	 * Hakee tietokannan taulusta kaikki tiedot ja laittaa ne listaan.
+	 * 
+	 * @return Lista, josta on myöhemmin helppo asettaa haluttu data näkyville.
+	 */
 	public ArrayList<Double> haeLKData(int simuloinninID) {
 		ArrayList<Double> LKtaulu = new ArrayList<>();
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from laskettelukeskus where id=?")) {
@@ -249,6 +288,11 @@ public class DAO implements IDAO {
 		return LKtaulu;
 	}
 
+	/**
+	 * Hakee tietokannan taulusta kaikki tiedot ja laittaa ne listaan.
+	 * 
+	 * @return Lista, josta on myöhemmin helppo asettaa haluttu data näkyville.
+	 */
 	public ArrayList<Double> haePPData(int simuloinninID, String nimi) {
 
 		ArrayList<Double> PPtaulu = new ArrayList<>();
@@ -272,6 +316,12 @@ public class DAO implements IDAO {
 		return PPtaulu;
 	}
 
+	/**
+	 * Metodi, jonka avulla selvitetään kuinka monta ajokertaa tietokantaan on
+	 * tallennettuna
+	 * 
+	 * @return lista, jota käytetään comboboxissa, jotta käyttäjä voisi valita
+	 */
 	public ArrayList<Integer> IDpituus() {
 		ArrayList<Integer> IDpituus = new ArrayList<>();
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from laskettelukeskus")) {
@@ -286,6 +336,11 @@ public class DAO implements IDAO {
 		return IDpituus;
 	}
 
+	/**
+	 * Hakee tietokannan taulusta kaikki tiedot ja laittaa ne listaan.
+	 * 
+	 * @return Lista, josta on myöhemmin helppo asettaa haluttu data näkyville.
+	 */
 	public ArrayList<Double> haeAData(int simuloinninID) {
 		ArrayList<Double> asiakasTaulu = new ArrayList<>();
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from asiakas where id=?")) {
@@ -303,6 +358,11 @@ public class DAO implements IDAO {
 		return asiakasTaulu;
 	}
 
+	/**
+	 * Hakee tietokannan taulusta kaikki tiedot ja laittaa ne listaan.
+	 * 
+	 * @return Lista, josta on myöhemmin helppo asettaa haluttu data näkyville.
+	 */
 	public ArrayList<Double> haeSyotteet(int simuloinninID) {
 		ArrayList<Double> syotteetTaulu = new ArrayList<>();
 		try (PreparedStatement st = myCon.prepareStatement("SELECT * from syotteet where id=?")) {

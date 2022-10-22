@@ -11,8 +11,21 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Kontrolleri RootLayoutille. Suorittaa rootlayoutin tarvittavat tehtävät.
+ * 
+ * @author adnanavni
+ * @version 1.0
+ *
+ */
 public class RootKontrolleri {
 
+	/**
+	 * Siirtyy käyttöohje ikkunaan, josta käyttäjä voi lukea simulaattorin
+	 * käyttöohjeet.
+	 * 
+	 * @param event metodin sisäinen
+	 */
 	@FXML
 	public void vaihdaInfoIkkunaan(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("InfoRuutu.fxml"));

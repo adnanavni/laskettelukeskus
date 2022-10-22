@@ -12,6 +12,13 @@ import eduni.distributions.Uniform;
 import simu.model.Asiakas;
 import simu.model.Palvelupiste;
 
+/**
+ * Palvelupiste-olion testit.
+ * 
+ * @author Adnan Avni
+ * @version 1.0
+ *
+ */
 class PalvelupisteTesti {
 
 	@Test

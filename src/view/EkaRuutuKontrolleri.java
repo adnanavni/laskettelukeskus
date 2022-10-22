@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 
 import controller.IKontrolleriMtoV;
 import controller.IKontrolleriVtoM;
-import dao.DAO;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +24,14 @@ import javafx.stage.Stage;
 import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
 
+/**
+ * Kontrolleri simulaattorin näkymälle. Tämä toimii siis viewin(EkaRuutu.fxml)
+ * ja modelin välillä. Kuljetetaan ja vastaanotetaan tietoa molempien välillä.
+ * 
+ * @author Adnan Avni, Roope Kylli ja Perttu Vaarala
+ * @version 1.0
+ *
+ */
 public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	@FXML
@@ -88,16 +95,18 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	Alert error = new Alert(AlertType.ERROR);
 
-	SImulaattorinGUI omaGUI;
+	SimulaattorinGUI omaGUI;
 
 	private IMoottori moottori;
 
-	private DAO dao = new DAO();
-
-	public void setMainApp(SImulaattorinGUI mainApp) {
+	public void setMainApp(SimulaattorinGUI mainApp) {
 		this.omaGUI = mainApp;
 	}
 
+	/**
+	 * Suoritetaan simuloi napista. Asettaa alustavat tiedot moottoriin ja
+	 * käynnistää sen.
+	 */
 	public void kaynnistaSimulointi() {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 
@@ -118,6 +127,11 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		((Thread) moottori).start();
 	}
 
+	/**
+	 * Suoritetaan kun halutaan avata tulokset ikkuna.
+	 * 
+	 * @param event käytetään metodin sisäisesti.
+	 */
 	@FXML
 	public void vaihdaTulosIkkunaan(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TulosRuutu.fxml"));
@@ -137,10 +151,6 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
 		stage.getIcons().add(new Image("file:resources/images/icon.png"));
 		stage.show();
-	}
-
-	public void initialize() {
-
 	}
 
 	public Label getRinne1Label() {
@@ -171,6 +181,9 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		moottori.setViive((long) (moottori.getViive() * 1.10));
 	}
 
+	/**
+	 * Visualisoi jonon näkyviin. Päivittyy jatkuvasti.
+	 */
 	@Override
 	public void naytaJono(Label l, int jono) {
 		Platform.runLater(() -> {
@@ -179,6 +192,9 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	}
 
+	/**
+	 * Formatoi ja visualoisoi ajan viewissä
+	 */
 	@Override
 	public void naytaAika(double aika) {
 		Platform.runLater(() -> {
@@ -192,6 +208,10 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		return simuloiNappi;
 	}
 
+	/**
+	 * Laskee radiobuttoneista saadut ajanmuutokset. Käytetään käynnistä simulointi
+	 * metodissa
+	 */
 	public void radioButtonit() {
 
 		if (minuutti.isSelected()) {
@@ -209,6 +229,10 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 		}
 	}
 
+	/**
+	 * Käyttää promptextejä alkuarvoina, jos käyttäjä ei syötä muita arvoja.
+	 * Käytetään käynnistä simulointi metodissa
+	 */
 	public void alkuarvot() {
 
 		if (kassaSaapumisvali.getText().isEmpty()) {

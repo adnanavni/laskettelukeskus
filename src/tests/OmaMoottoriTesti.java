@@ -8,6 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import simu.model.OmaMoottori;
 
+/**
+ * OmaMoottorin toimivuuden testit.
+ * 
+ * @author Perttu Vaarala
+ * @version 1.0
+ *
+ */
 class OmaMoottoriTesti {
 
 	OmaMoottori m = new OmaMoottori(null);

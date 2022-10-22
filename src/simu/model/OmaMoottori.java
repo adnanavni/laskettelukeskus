@@ -14,16 +14,41 @@ import simu.framework.Moottori;
 import simu.framework.Saapumisprosessi;
 import simu.framework.Tapahtuma;
 
+/**
+ * 
+ * OmaMoottori huolehtii simulaattorin alustuksista, tapahtumien suorituksesta.
+ * Luo jatkuvasti uusia asiakkaita ja kuljettaa niiden tapahtumia eteenpäin
+ * tapahtumatyyppien avulla.
+ * 
+ * @author Adnan Avni, Roope Kylli ja Perttu Vaarala.
+ * @version 1.0
+ */
 public class OmaMoottori extends Moottori {
 
 	private Saapumisprosessi saapumisprosessi;
 
+	/**
+	 * Arpoo jokaiselle asiakkaalle eripituisen reitinpituuden
+	 */
 	private int reitinPituus = ThreadLocalRandom.current().nextInt(5, 20);
+
 	private HashMap<Integer, Double> palveluajat = new HashMap<>();
 	private HashMap<Integer, Double> kayttoaste = new HashMap<>();
 	private HashMap<Integer, Double> palveluAikaKA = new HashMap<>();
+	/**
+	 * Monesti asiakkaat ovat käyneet palvelupisteillä. Muuttuja on tehty
+	 * helpottakseen laskuja.
+	 */
 	private HashMap<Integer, Integer> asiakkaidenPp = new HashMap<>();
+
+	/**
+	 * Paljonko jokainen asiakas on käyttänyt rahaa laskettelukeskukseen, käytetään
+	 * keskiarvo laskuja varten
+	 */
 	private ArrayList<Double> asiakkaidenHinnat = new ArrayList<>();
+	/**
+	 * Jokaisen asiakkaan reitinpituus, käytetään keskiarvo laskuja varten.
+	 */
 	private ArrayList<Integer> reitinPituudet = new ArrayList<>();
 
 	private int saapuneetAsiakkaat;
@@ -35,8 +60,18 @@ public class OmaMoottori extends Moottori {
 	private double saapumisaikavali, kassaPalveluaika, kassaHinta, vuokraamoAika, vuokraamoHinta, kahvilaAika,
 			kahvilaHinta, ekaRinneAika, tokaRinneAika;
 
+	/**
+	 * DAO-olio, jotta tietokantaan olisi mahdollista lähettää dataa.
+	 */
 	private DAO dao = new DAO();
 
+	/**
+	 * OmaMoottorin konstrukotri, tekee simulaattorin tarvittavat palvelupisteet ja
+	 * asiakkaiden saapumisprosessin
+	 * 
+	 * @param kontrolleri parametrina kontrolleri, jotta voidaan hyödyntää sen
+	 *                    ominaisuuksia.
+	 */
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) { // UUSI
 
 		super(kontrolleri); // UUSI
@@ -59,6 +94,10 @@ public class OmaMoottori extends Moottori {
 		saapumisprosessi = new Saapumisprosessi(new Negexp(1, 1), tapahtumalista, TapahtumanTyyppi.ARR1);
 	}
 
+	/**
+	 * Simulaattorin alustukset. Tässä metodissa asetetaa käyttäjän asettamat arvot
+	 * tarvittaviin paikkoihin.
+	 */
 	@Override
 	protected void alustukset() {
 		Kello.getInstance().setAika(0);
@@ -79,6 +118,13 @@ public class OmaMoottori extends Moottori {
 		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
 	}
 
+	/**
+	 * Suorittaa simulaattorin jokaisen tapahtuman. Switch-casessa jokainen
+	 * tapahtumatyyppi, jonka mukaan simulaattorissa asiakkaat etenee ja samalla
+	 * caseissa tapahtuu tarvittavat laskut ja visualisoinnin informoinnit.
+	 * 
+	 * @param t käytetään vain metodin sisäisiä tarkoituksia varten
+	 */
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
@@ -179,6 +225,10 @@ public class OmaMoottori extends Moottori {
 		}
 	}
 
+	/**
+	 * Laskee tarvittavat suureet simuloinnista ja lähettää ne DAO:oon
+	 * käsiteltäväksi.
+	 */
 	@Override
 	protected void tulokset() {
 

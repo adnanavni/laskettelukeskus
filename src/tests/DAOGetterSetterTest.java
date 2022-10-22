@@ -8,6 +8,13 @@ import org.junit.jupiter.api.Test;
 
 import dao.DAO;
 
+/**
+ * DAO:n toimivuuden testit
+ * 
+ * @author Roope Kylli
+ * @version 1.0
+ *
+ */
 class DAOGetterSetterTest {
 
 	@Test

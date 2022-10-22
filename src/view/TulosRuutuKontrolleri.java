@@ -12,6 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
+/**
+ * Kontrolleri tulosikkunalle. Toimii viewin ja DAOn välisenä työkaluna.
+ * 
+ * @author Adnan Avni, Roope Kylli ja Perttu Vaarala
+ * @version 1.0
+ *
+ */
 public class TulosRuutuKontrolleri {
 
 	@FXML
@@ -92,14 +99,27 @@ public class TulosRuutuKontrolleri {
 	@FXML
 	private Button tyhjennysNappi;
 
+	/**
+	 * Tietokantoja varten
+	 */
 	Integer ID;
 
+	/**
+	 * Tietokantoja varten tarvitaan palvelupisteiden nimet
+	 */
 	String ppID;
 
+	/**
+	 * DAO, josta haetaan tieto näkyville.
+	 */
 	private IDAO dao = new DAO();
 
 	DecimalFormat df = new DecimalFormat("###.###");
 
+	/**
+	 * Comboboxit vastaamaan tietokannasta saatua pituutta ja palvelupisteiden
+	 * asetus.
+	 */
 	public void initialize() {
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Kassa", "Vuokraamo", "Kahvila",
 				"Rinne1", "Rinne2");
@@ -109,6 +129,11 @@ public class TulosRuutuKontrolleri {
 		simulointiChoiceBox.setItems(IDt);
 	}
 
+	/**
+	 * Asettaa daon avulla tietokannasta saadut tiedot sen omille paikoilleen.
+	 * Päivittyy aina kun käyttäjä vaihtaa käyttöliittymästä simulointikertaa tai
+	 * palvelupistettä.
+	 */
 	@FXML
 	public void asetaData() {
 		ID = simulointiChoiceBox.getSelectionModel().getSelectedItem();
@@ -142,6 +167,11 @@ public class TulosRuutuKontrolleri {
 
 	}
 
+	/**
+	 * Asettaa daon avulla tietokannasta saadut tiedot sen omille paikoilleen.
+	 * Päivittyy aina kun käyttäjä vaihtaa käyttöliittymästä simulointikertaa tai
+	 * palvelupistettä.
+	 */
 	public void palvelupisteData() {
 		ppID = ppChoiceBox.getSelectionModel().getSelectedItem();
 		ID = simulointiChoiceBox.getSelectionModel().getSelectedItem();
@@ -153,6 +183,12 @@ public class TulosRuutuKontrolleri {
 		kayttoAste.setText(df.format(dao.haePPData(ID, ppID).get(4)));
 	}
 
+	/**
+	 * Tyhjentää DAO:n kautta tietokannasta kaikki taulukot. Toteutuu tyhjennä
+	 * tietokannat napista
+	 * 
+	 * @param event metodin sisäinen
+	 */
 	@FXML
 	public void tyhjennaTietokanta(ActionEvent event) {
 		dao.tyhjennaTietokanta();
@@ -165,6 +201,10 @@ public class TulosRuutuKontrolleri {
 		tyhjennaTulokset();
 	}
 
+	/**
+	 * Vaihtaa käyttöliittymässä näkyvät numerot nolliksi. Kutsutaan tietokannan
+	 * tyhjennyksen yhteydessä.
+	 */
 	public void tyhjennaTulokset() {
 
 		simulaationKesto.setText("0");

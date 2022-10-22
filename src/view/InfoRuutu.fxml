@@ -38,7 +38,7 @@
             <Image url="@../../resources/images/help.png" />
          </image>
       </ImageView>
-      <Label layoutX="11.0" layoutY="238.0" text="Simulointi voi nopeuttaa tai hidastaa napeista." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="245.0">
+      <Label layoutX="11.0" layoutY="238.0" text="Simulointia voi nopeuttaa tai hidastaa napeista." underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="245.0">
          <font>
             <Font size="20.0" />
          </font>

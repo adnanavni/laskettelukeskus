@@ -6,18 +6,40 @@ import eduni.distributions.Normal;
 import simu.framework.Kello;
 import simu.framework.Trace;
 
-// TODO:
-// Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
+/**
+ * Luokka sisältää yksittäisen asiakkaan asioimiseen liittyvät tiedot. Asiakas
+ * liikkuu simulaattorissa palvelupisteeltä seuraavalle.
+ * 
+ * @author Adnan Avni
+ * @version 1.0
+ */
+
 public class Asiakas {
+
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
 	private static int i = 1;
 	private static long sum = 0;
-	LinkedList<Integer> reitti = new LinkedList<>();
-	// rinne 1 on suosituin, joten sen mukainen jakauma
-	Normal jakauma = new Normal(3.0, 1);
 
+	/**
+	 * Asiakaskohtainen reitti tallennetaan tähän listaksi.
+	 */
+	LinkedList<Integer> reitti = new LinkedList<>();
+
+	/**
+	 * Jakauma, jonka mukaan reitti listaan asetetaan numeroita. Rinne 1 on
+	 * suosituin ja jakauma on tehty sen mukaisesti.
+	 */
+	Normal jakauma = new Normal(3, 1);
+
+	/**
+	 * Asiakkaan konstruktori, joka ottaa parametrina kuinka pitkä reitti sille
+	 * tehdään.
+	 * 
+	 * @param reitinpituus määrittää reitti listan pituuden, eli monessako
+	 *                     palvelupisteessä kyseinen asiakas tulee asioimaan.
+	 */
 	public Asiakas(int reitinpituus) {
 		id = i++;
 
@@ -42,6 +64,10 @@ public class Asiakas {
 		Trace.out(Trace.Level.INFO, "Uusi asiakas:" + id + ":" + saapumisaika);
 	}
 
+	/**
+	 * @return palauttaa reitistä seuraavan palvelupisteen ja poistaa sen samalla,
+	 *         jotta reitti jatkuvasti lyhenee
+	 */
 	public int seuraava() {
 		return reitti.poll();
 	}
@@ -66,6 +92,14 @@ public class Asiakas {
 		return id;
 	}
 
+	public long getKokonaisAika() {
+		return (long) (poistumisaika - saapumisaika);
+	}
+
+	/**
+	 * Asiakaskohtainen raportti, jossa tulostetaan konsoliin asiakaskohtaisia
+	 * tietoja.
+	 */
 	public void raportti() {
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " saapui:" + saapumisaika);
 		Trace.out(Trace.Level.INFO, "Asiakas " + id + " poistui:" + poistumisaika);
@@ -73,9 +107,5 @@ public class Asiakas {
 		sum += (poistumisaika - saapumisaika);
 		double keskiarvo = sum / id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo " + keskiarvo);
-	}
-
-	public long getKokonaisAika() {
-		return (long) (poistumisaika - saapumisaika);
 	}
 }
