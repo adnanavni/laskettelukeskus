@@ -518,4 +518,12 @@ public class DAO implements IDAO {
 		LKlapimenoaikaAVG = lKlapimenoaikaAVG;
 	}
 
+	public static double getArahaaKaytetty() {
+		return ArahaaKaytetty;
+	}
+
+	public static double getSaapumisvali() {
+		return saapumisvali;
+	}
+
 }

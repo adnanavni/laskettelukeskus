@@ -282,6 +282,10 @@ public class OmaMoottori extends Moottori {
 		kassaHinta = raha;
 	}
 
+	public double getkassaHinta() {
+		return kassaHinta;
+	}
+
 	public void vuokraamoPalveluaika(double aika) {
 		vuokraamoAika = aika;
 	}
@@ -297,6 +301,10 @@ public class OmaMoottori extends Moottori {
 
 	public void kahvilaHinta(double raha) {
 		kahvilaHinta = raha;
+	}
+
+	public double getkahvilaHinta() {
+		return kahvilaHinta;
 	}
 
 	public void ekaRinnePalveluaika(double aika) {
