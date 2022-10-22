@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
- public class OmaGUI extends Application {
+ public class SImulaattorinGUI extends Application {
  	 private Stage primaryStage;
  	    private BorderPane rootLayout;
  	   private EkaRuutuKontrolleri kontrolleri;
@@ -40,7 +40,7 @@ import javafx.stage.Stage;
  	        try {
  	            // Load root layout from fxml file.
  	            FXMLLoader loader = new FXMLLoader();
- 	            loader.setLocation(OmaGUI.class.getResource("RootLayout.fxml"));
+ 	            loader.setLocation(SImulaattorinGUI.class.getResource("RootLayout.fxml"));
  	            rootLayout = (BorderPane) loader.load();
 
  	            // Show the scene containing the root layout.
@@ -60,7 +60,7 @@ import javafx.stage.Stage;
  	        try {
  	            // Load person overview.
  	            FXMLLoader loader = new FXMLLoader();
- 	            loader.setLocation(OmaGUI.class.getResource("EkaRuutu.fxml"));
+ 	            loader.setLocation(SImulaattorinGUI.class.getResource("EkaRuutu.fxml"));
  	            AnchorPane personOverview = (AnchorPane) loader.load();
 
  	            // Set person overview into the center of root layout.

@@ -88,13 +88,13 @@ public class EkaRuutuKontrolleri implements IKontrolleriMtoV, IKontrolleriVtoM {
 
 	Alert error = new Alert(AlertType.ERROR);
 
-	OmaGUI omaGUI;
+	SImulaattorinGUI omaGUI;
 
 	private IMoottori moottori;
 
 	private DAO dao = new DAO();
 
-	public void setMainApp(OmaGUI mainApp) {
+	public void setMainApp(SImulaattorinGUI mainApp) {
 		this.omaGUI = mainApp;
 	}
 
